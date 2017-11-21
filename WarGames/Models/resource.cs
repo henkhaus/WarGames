@@ -17,12 +17,12 @@ namespace WarGames.Models
     {
         public Resource(ResourceType _resourceType, int _resourceAmount)
         {
-            resourceName = _resourceType;
-            resourceAmount = _resourceAmount;
+            ResourceName = _resourceType;
+            ResourceAmount = _resourceAmount;
         }
 
-        public ResourceType resourceName { get; set; }
+        public ResourceType ResourceName { get; set; }
 
-        public int resourceAmount { get; set; } = 0;
+        public int ResourceAmount { get; set; } = 0;
     }
 }

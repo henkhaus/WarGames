@@ -7,44 +7,44 @@ using System.Threading.Tasks;
 namespace WarGames.Models
 {
 
-    public class Item : IAction
+    public class Item : IActor
     {
         public Item()
         {
-            this.active = true;
+            this.Active = true;
         }
 
         public Item(string _name, int _power, int _strength)
         {
-            this.active = true;
-            name = _name;
-            power = _power;
-            strength = _strength;
+            this.Active = true;
+            Name = _name;
+            Power = _power;
+            Strength = _strength;
         }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
-        public int playCost { get; set; }
+        public int PlayCost { get; set; }
 
-        public int power { get; set; }
+        public int Power { get; set; }
 
-        public int strength { get; set; }
+        public int Strength { get; set; }
 
-        public Place itemLocation { get; set; }
+        public Place ItemLocation { get; set; }
 
         public bool Degrade()
         {
-            // calc damage from use
-            int damage = 1;
+            // calc degredation from use
+            int degredation = 1;
 
             // subtract damage from strength
-            this.strength -= damage;
+            this.Strength -= degredation;
 
-            if (this.strength <= 0)
+            if (this.Strength <= 0)
             {
-                this.active = false;
+                this.Active = false;
             }
 
             return true;

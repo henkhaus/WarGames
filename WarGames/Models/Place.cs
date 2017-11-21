@@ -15,17 +15,17 @@ namespace WarGames.Models
 
         public Place(string _name, double _x, double _y, double _z)
         {
-            name = _name;
-            coords = new Coordinates(_x, _y, _z);
+            Name = _name;
+            Coords = new Coordinates(_x, _y, _z);
         }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public List<Resource> resources { get; set; }
+        public List<Resource> Resources { get; set; }
 
-        public Coordinates coords { get; set; }
+        public Coordinates Coords { get; set; }
 
     }
 }

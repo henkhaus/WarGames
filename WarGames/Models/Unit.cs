@@ -16,14 +16,14 @@ namespace WarGames.Models
     {
         public Unit(UnitType _unitType, int _numTroops)
         {
-            unitType = _unitType;
-            numTroops = _numTroops;
+            UnitType = _unitType;
+            NumTroops = _numTroops;
         }
 
-        public UnitType unitType { get; set; }
+        public UnitType UnitType { get; set; }
 
         // default to 0
-        public int numTroops { get; set; } = 0;
+        public int NumTroops { get; set; } = 0;
 
 
     }

@@ -24,12 +24,13 @@ namespace WarGames.Models.ShipModel
         C
     }
 
-    public abstract class Ship : Item
+    public abstract class Ship : Actor
     {
         public ShipType ShipType { get; set; }
 
         public ShipClass ShipClass { get; set; }
 
+        // travel props and calculations
         [Description("Units per Earth Day")]
         public double Speed { get; set; }
 
@@ -41,10 +42,9 @@ namespace WarGames.Models.ShipModel
 
         public double DistanceToDestination { get; set; }
 
-        [Description()]
         public TimeSpan TimeToDestination { get; set; }
 
-        public double Arrival { get; set; }
+        public DateTime Arrival { get; set; }
 
         public bool SetDestination(Place destination)
         {
@@ -56,6 +56,7 @@ namespace WarGames.Models.ShipModel
             {
                 DistanceToDestination = Travel.DetermineDistance(this.ShipOrigination, this.ShipDestination);
                 TimeToDestination = TimeSpan.FromDays(DistanceToDestination / Speed);
+                Arrival = DateTime.Now + TimeToDestination;
             }
             catch (Exception e)
             {
@@ -64,6 +65,14 @@ namespace WarGames.Models.ShipModel
 
             return true;
         }
+
+        // TODO: use getter to calc new TotalDamage prop
+
+
+
+
+
+
     }
 
     #region: Classes for specific ships

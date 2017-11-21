@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
+using WarGames;
 using WarGames.Models.ShipModel;
 
 namespace WarGamesApp
@@ -25,18 +26,15 @@ namespace WarGamesApp
 
             IShip fighter = shipFactory.CreateShip(ShipType.Fighter, ShipClass.B);
             Console.WriteLine(fighter.GetNomenclature());
+
             Fighter theFighter = (Fighter)fighter;
-            
-            /*
-            ship.shipLocation = planetX;
 
-            robert.ships.Add(ship);
-            robert.characterLocation = earth;
-            double dist = Travel.DetermineDistance(robert.characterLocation, ship.shipLocation);
-
-            ship.SetDestination(robert.characterLocation);
-            */
-            // example
+            theFighter.Speed = 7;
+            theFighter.ShipLocation = earth;
+            theFighter.SetDestination(planetX);
+            double DaystoDest = Convert.ToDouble(theFighter.TimeToDestination.TotalDays);
+            Console.WriteLine($"dist to {theFighter.ShipDestination.Name}-{theFighter.DistanceToDestination} days-{DaystoDest} est.arrival-{theFighter.Arrival}");
+                        
 
             Console.ReadLine();
             
