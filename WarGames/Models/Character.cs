@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarGames.Models.ShipModel;
 
 namespace WarGames.Models
 {
@@ -18,44 +19,44 @@ namespace WarGames.Models
 
         public Character(string _name, int _basePower, int _baseStrength)
         {
-            name = _name;
-            basePower = _basePower;
-            baseStrength = _baseStrength;
-            this.items = new Dictionary<string, Item>();
-            this.ships = new List<Ship>();
-            effectivePower = basePower;
-            effectiveStrength = baseStrength;
+            Name = _name;
+            BasePower = _basePower;
+            BaseStrength = _baseStrength;
+            Items = new Dictionary<string, Item>();
+            Ships = new List<Ship>();
+            EffectivePower = BasePower;
+            EffectiveStrength = BaseStrength;
         }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public Race race { get; set; }
+        public Race Race { get; set; }
 
-        public int resourceTotal { get; set; }
+        public int ResourceTotal { get; set; }
 
-        public Dictionary<string, Item> items { get; set; }
+        public Dictionary<string, Item> Items { get; set; }
 
-        public List<Ship> ships { get; set; }
+        public List<Ship> Ships { get; set; }
 
-        public Place characterLocation { get; set; }
+        public Place CharacterLocation { get; set; }
 
-        public int basePower { get; set; }
+        public int BasePower { get; set; }
 
-        public int baseStrength { get; set; }
+        public int BaseStrength { get; set; }
 
-        public int effectivePower { get; set; }
+        public int EffectivePower { get; set; }
 
-        public int effectiveStrength { get; set; }
+        public int EffectiveStrength { get; set; }
 
 
         public bool Equip(Item item)
         {
             //subract playCost from character's total resources
-            resourceTotal -= item.playCost;
+            ResourceTotal -= item.playCost;
 
             // get powers
-            effectivePower += item.power;
-            effectiveStrength += item.strength;
+            EffectivePower += item.power;
+            EffectiveStrength += item.strength;
 
             return true;
         }
@@ -63,8 +64,8 @@ namespace WarGames.Models
         public bool Unequip(Item item)
         {
             // remove powers
-            effectivePower -= item.power;
-            effectiveStrength -= item.strength;
+            EffectivePower -= item.power;
+            EffectiveStrength -= item.strength;
 
             return true;
         }

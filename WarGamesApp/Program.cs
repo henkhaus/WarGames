@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
+using WarGames.Models.ShipModel;
 
 namespace WarGamesApp
 {
@@ -13,14 +14,20 @@ namespace WarGamesApp
         static void Main(string[] args)
         {
             Character robert = new Character("Robert", 5, 5);
-            robert.race = Race.Bob;
+            robert.Race = Race.Bob;
 
             // create places
             Place earth = new Place("earth", 0, 0, 0);
             Place planetX = new Place("planet x", 5, 5, 5);
 
             // ships
-            Ship ship = new Ship(ShipType.Cargo);
+            ShipFactory shipFactory = new ShipFactory();
+
+            IShip fighter = shipFactory.CreateShip(ShipType.Fighter, ShipClass.B);
+            Console.WriteLine(fighter.GetNomenclature());
+            Fighter theFighter = (Fighter)fighter;
+            
+            /*
             ship.shipLocation = planetX;
 
             robert.ships.Add(ship);
@@ -28,22 +35,8 @@ namespace WarGamesApp
             double dist = Travel.DetermineDistance(robert.characterLocation, ship.shipLocation);
 
             ship.SetDestination(robert.characterLocation);
-
+            */
             // example
-            Console.WriteLine("Robert is a " + robert.race);
-            Console.WriteLine("he is on " + robert.characterLocation.name);
-
-            Console.WriteLine("distance to ship "+dist);
-            Console.WriteLine("ship is leaving from " + ship.shipOrigination.name);
-
-            // example
-
-            Item axe = new Item("Axe", 5, 3);
-            robert.items.Add(axe.name, axe);
-            robert.Use(robert.items["Axe"]);
-            Console.WriteLine("roberts power is " + robert.basePower);
-
-
 
             Console.ReadLine();
             

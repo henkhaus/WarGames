@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarGames.Models
 {
+    /// <summary>
+    /// Interface to ensure class will take an action
+    /// </summary>
     interface IAction
     {
         bool Action();
