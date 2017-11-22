@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarGames.Models.ActionModel;
 
 namespace WarGames.Models
 {
     public class Actor
     {
+        // TODO: add locations and travel ability to Actor (not character, unit, ship, etc.)
         public int BasePower { get; set; }
 
         public int BaseStrength { get; set; }
@@ -17,6 +19,9 @@ namespace WarGames.Models
         public int EffectiveStrength { get; set; }
 
         public int ResourceTotal { get; set; }
+
+        public bool Engaged { get; set; }
+
 
         public bool Equip(Item item)
         {
@@ -35,14 +40,23 @@ namespace WarGames.Models
 
             return true;
         }
-
-        public bool Use(Item item)
+        
+        public bool Use(Item item, IAction action)
         {
             if (item.Active)
             {
                 Equip(item);
 
                 //TODO: use the item (attack, block, move, etc)
+                if (action.BattleAction && this.Engaged)
+                {
+                    // create and send battle action
+
+                }
+                else
+                {
+                    // send non-battle action
+                }
 
                 // degrade item
                 ResourceTotal -= item.PlayCost;

@@ -45,6 +45,7 @@
     <Compile Include="Models\ActionModel\Actions.cs" />
     <Compile Include="Models\ActionModel\IAction.cs" />
     <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\Battle.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Coordinates.cs" />

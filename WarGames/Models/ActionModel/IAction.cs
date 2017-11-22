@@ -8,6 +8,7 @@ namespace WarGames.Models.ActionModel
 {
     public interface IAction
     {
+        bool BattleAction { get; }
         string GetActionType();
     }
 }
