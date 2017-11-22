@@ -7,38 +7,40 @@ using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
 
-namespace WarGames.Models.ShipModel
+namespace WarGames.Models.UnitModel
 {
-    public enum ShipType
+    public enum UnitType
     {
-        Fighter, Transport
+        Recon,
+        Infantry
     }
 
-    public enum ShipClass
+    public enum UnitSize
     {
-        [Description("A")]
-        A,
-        [Description("B")]
-        B,
-        [Description("C")]
-        C
+        // use Navy terms like Fleet, Battle Group, etc. ??
+        [Description("Battalion")]
+        Battalion,
+        [Description("Brigade")]
+        Brigade,
+        [Description("Corps")]
+        Corps
     }
 
-    public abstract class Ship : Actor
+    public abstract class Unit : Actor
     {
-        public ShipType ShipType { get; set; }
+        public UnitType UnitType { get; set; }
 
-        public ShipClass ShipClass { get; set; }
+        public UnitSize UnitSize { get; set; }
 
         // travel props and calculations
         [Description("Units per Earth Day")]
         public double Speed { get; set; }
 
-        public Place ShipLocation { get; set; }
+        public Place UnitLocation { get; set; }
 
-        public Place ShipDestination { get; set; }
+        public Place UnitDestination { get; set; }
 
-        public Place ShipOrigination { get; set; }
+        public Place UnitOrigination { get; set; }
 
         public double DistanceToDestination { get; set; }
 
@@ -48,13 +50,13 @@ namespace WarGames.Models.ShipModel
 
         public bool SetDestination(Place destination)
         {
-            this.ShipDestination = destination;
-            this.ShipOrigination = this.ShipLocation;
+            this.UnitDestination = destination;
+            this.UnitOrigination = this.UnitLocation;
 
             // determine distance to destination
             try
             {
-                DistanceToDestination = Travel.DetermineDistance(this.ShipOrigination, this.ShipDestination);
+                DistanceToDestination = Travel.DetermineDistance(this.UnitOrigination, this.UnitDestination);
                 TimeToDestination = TimeSpan.FromDays(DistanceToDestination / Speed);
                 Arrival = DateTime.Now + TimeToDestination;
             }
@@ -69,38 +71,39 @@ namespace WarGames.Models.ShipModel
         // TODO: use getter to calc new TotalDamage prop
     }
 
-    #region: Classes for specific ships
-    public class Fighter : Ship, IShip
+    #region: Classes for specific units
+    public class Infantry : Unit, IUnit
     {
-        public Fighter(ShipClass _shipClass)
+        public Infantry(UnitSize _unitSize)
         {
-            shipClass = _shipClass;
+            unitSize = _unitSize;
         }
 
-        public ShipClass shipClass { get; set; }
+        public UnitSize unitSize { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"Class {shipClass.GetDescription()} {this.GetType().Name} ";
+            string nomenclature = $"{this.GetType().Name} {UnitSize.GetDescription()}";
             return nomenclature;
         }
 
     }
 
-    public class Transport : Ship, IShip
+    public class Recon : Unit, IUnit
     {
-        public Transport(ShipClass _shipClass)
+        public Recon(UnitSize _unitSize)
         {
-            shipClass = _shipClass;
+            unitSize = _unitSize;
         }
 
-        public ShipClass shipClass { get; set; }
+        public UnitSize unitSize { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"Class {shipClass.GetDescription()} {this.GetType().Name} ";
+            string nomenclature = $"{this.GetType().Name} {UnitSize.GetDescription()}";
             return nomenclature;
         }
+
     }
     #endregion
 }

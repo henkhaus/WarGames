@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
-using WarGames;
+using WarGames.Models.ActionModel;
 using WarGames.Models.ShipModel;
+using WarGames.Models.UnitModel;
+
 
 namespace WarGamesApp
 {
@@ -34,7 +36,16 @@ namespace WarGamesApp
             theFighter.SetDestination(planetX);
             double DaystoDest = Convert.ToDouble(theFighter.TimeToDestination.TotalDays);
             Console.WriteLine($"dist to {theFighter.ShipDestination.Name}-{theFighter.DistanceToDestination} days-{DaystoDest} est.arrival-{theFighter.Arrival}");
-                        
+
+            //TODO: create tests for these examples
+            ActionFactory actionFactory = new ActionFactory();
+            IAction attack = actionFactory.CreateAction(ActionType.Attack);
+            Console.WriteLine(attack.GetActionType());
+
+            UnitFactory unitFactory = new UnitFactory();
+            IUnit recon = unitFactory.CreateUnit(UnitType.Recon, UnitSize.Battalion);
+            Console.WriteLine(recon.GetNomenclature());
+            
 
             Console.ReadLine();
             

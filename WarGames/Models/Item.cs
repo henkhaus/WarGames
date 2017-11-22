@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WarGames.Models
 {
 
-    public class Item : IActor
+    public class Item 
     {
         public Item()
         {
