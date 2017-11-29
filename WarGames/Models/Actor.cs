@@ -7,7 +7,7 @@ using WarGames.Models.ActionModel;
 
 namespace WarGames.Models
 {
-    public class Actor
+    public class Actor 
     {
         // TODO: add locations and travel ability to Actor (not character, unit, ship, etc.)
         public int BasePower { get; set; }

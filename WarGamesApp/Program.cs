@@ -56,11 +56,13 @@ namespace WarGamesApp
             robert.CharacterLocation = planetX;
 
 
+            
             Battle battle;
             if(robert.CharacterLocation == amanda.CharacterLocation)
             {
                 battle = new Battle(robert, amanda);
                 Console.WriteLine(battle.BattleStatus);
+
             }
 
             // testing interop
