@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarGames.Events
 {
-    public class Session : Game
+    public class Session
     {
         // used as a session of a game
+        // sessions are 1-to-1 with num. of players
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models.ShipModel;
+using WarGames.Models.UnitModel;
+using WarGames.Models.ActionModel;
 
 namespace WarGames.Models
 {
@@ -35,6 +37,8 @@ namespace WarGames.Models
         public Dictionary<string, Item> Items { get; set; }
 
         public List<Ship> Ships { get; set; }
+
+        public List<Unit> Units { get; set; }
 
         public Place CharacterLocation { get; set; }
 
