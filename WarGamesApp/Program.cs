@@ -8,6 +8,7 @@ using WarGames.Algorithms;
 using WarGames.Models.ActionModel;
 using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
+using WarGames.Users;
 using System.Threading;
 
 namespace WarGamesApp
@@ -16,6 +17,43 @@ namespace WarGamesApp
     {
         static void Main(string[] args)
         {
+            // game startup
+            Console.WriteLine("Welcome to WarGames! (v.0.1.0.0)");
+            Console.WriteLine("################################");
+            Thread.Sleep(1 * 1000);
+            Console.WriteLine("Developed by Robert and Friends");
+            Config.WaitandClear();
+
+            // TODO: check for previous sessions and ask the user if they want to load it
+
+            // game setup
+            // create players routine
+            List<Player> players = Setup.BuildPayerRoutine();
+            Config.WaitandClear();
+
+            foreach (Player player in players)
+            {
+                player.Character.GetStats();
+            }
+
+            // create league routine
+            Setup.BuildLeagueRoutine(players);
+            Config.WaitandClear();
+            
+
+            // main game routine
+            string x;
+            do
+            {
+                x = Console.ReadLine();
+                KeyEvent.DetermineInput(x);
+
+                //Console.WriteLine(x + " was pressed");
+            }
+            while (x.ToUpper() != "XX");
+
+
+            /*
             // create characters
             Character robert = new Character("Robert", 5, 5);
             robert.Race = Race.Bob;
@@ -64,24 +102,7 @@ namespace WarGamesApp
                 Console.WriteLine(battle.BattleStatus);
 
             }
-
-            // testing interop
-            /*
-            battle.Attacke
-
-            //TODO: create tests for these examples
-            ActionFactory actionFactory = new ActionFactory();
-            IAction attack = actionFactory.CreateAction(ActionType.Attack);
-            Console.WriteLine(attack.GetActionType());
-
-            Attack theAttack = new Attack(robert, new Item());
-
-            theFighter.Use(new Item(), theAttack);
-            UnitFactory unitFactory = new UnitFactory();
-            IUnit recon = unitFactory.CreateUnit(UnitType.Recon, UnitSize.Battalion);
-            Console.WriteLine(recon.GetNomenclature());
             */
-
             Console.ReadLine();
             
         }

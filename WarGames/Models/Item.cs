@@ -36,7 +36,7 @@ namespace WarGames.Models
 
         public bool Degrade()
         {
-            //TODO:; make a smarter degredation tool in Algorithms namespace
+            //TODO: make a smarter degredation tool in Algorithms namespace
             // calc degredation from use
             int degredation = 1;
 

@@ -8,6 +8,8 @@ namespace WarGames.Users
 {
     public class League
     {
+        // TODO: check uniqueness of league name
+
         // groups of players create a league
         public League(string leagueName, List<Player> players)
         {

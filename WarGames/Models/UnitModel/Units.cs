@@ -17,7 +17,7 @@ namespace WarGames.Models.UnitModel
 
     public enum UnitSize
     {
-        // use Navy terms like Fleet, Battle Group, etc. ??
+        //TODO: use Navy terms like Fleet, Battle Group, etc. ??
         [Description("Battalion")]
         Battalion,
         [Description("Brigade")]

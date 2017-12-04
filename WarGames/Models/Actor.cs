@@ -61,7 +61,7 @@ namespace WarGames.Models
                 // degrade item
                 ResourceTotal -= item.PlayCost;
                 item.Degrade();
-                // TODO: implement damage to other character
+                // TODO: implement: damage to other character
             }
             if (!item.Active)
             {

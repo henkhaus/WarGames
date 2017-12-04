@@ -29,5 +29,13 @@ namespace WarGames.Models
             }
             return null;
         }
+
+
+        public static T RandomEnumValue<T>(Random rand)
+        {
+            var v = Enum.GetValues(typeof(T));
+
+            return (T)v.GetValue(rand.Next(v.Length));
+        }
     }
 }
