@@ -10,6 +10,8 @@ using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
 using WarGames.Users;
 using System.Threading;
+using WarGames.Art;
+using System.Drawing;
 
 namespace WarGamesApp
 {
@@ -18,10 +20,10 @@ namespace WarGamesApp
         static void Main(string[] args)
         {
             // game startup
-            Console.WriteLine("Welcome to WarGames! (v.0.1.0.0)");
-            Console.WriteLine("################################");
-            Thread.Sleep(1 * 1000);
-            Console.WriteLine("Developed by Robert and Friends");
+            AsciiGenerator ascii = new AsciiGenerator();
+            ascii.WriteInAscii("WarGame");
+            Thread.Sleep(1 * 1000);         
+            ascii.info("Developed by Robert and Friends");
             Config.WaitandClear();
 
             // TODO: check for previous sessions and ask the user if they want to load it
