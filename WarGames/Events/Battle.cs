@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarGames.Algorithms;
+using WarGames.Events;
+using WarGames.Models;
 
 namespace WarGames.Models
 {
@@ -14,7 +17,11 @@ namespace WarGames.Models
         Complete
     }
 
-    public class Battle
+    /// <summary>
+    /// Battles are created and manages here. Fighting/Dueling happens 
+    /// within Engagements. Battles exist within a session.
+    /// </summary>
+    public class Battle : Session
     {
         public Battle()
         {
@@ -50,18 +57,25 @@ namespace WarGames.Models
 
         public void StartBattle()
         {
-            this.Attacker.
-            BattleStatus = BattleStat.Active;
+            double battleDistance = Travel.DetermineDistance(this.Attacker.CurrentLocation, this.Defender.CurrentLocation);
 
-            // will run on a new thread
-            Task.Run(() => AssessBattleStatus());
+            if (battleDistance <= 5)
+            {
+                BattleStatus = BattleStat.Active;
 
-            // Moves and Actions occur
+                // will run on a new thread
+                Task.Run(() => AssessBattleStatus());
 
-
-            
-
+                // Moves and Actions occur
+            }
+            else
+            {
+                Console.WriteLine($"Cannot create battle: Parties must be within 5 units of distance. " +
+                    $"Parties are currently {battleDistance} units apart. Travel {battleDistance - 5} " +
+                    $"units to create a battle.");
+            }
         }
+
 
         public BattleStat AssessBattleStatus()
         {

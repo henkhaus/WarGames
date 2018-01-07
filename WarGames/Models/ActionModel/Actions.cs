@@ -22,6 +22,8 @@ namespace WarGames.Models.ActionModel
         // other Action-scope props 
 
     }
+
+
     // TODO: use Battle Actions only in battle  
     #region: Classes for scpecific actions
     public class Attack : Action, IAction

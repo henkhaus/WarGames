@@ -20,5 +20,7 @@ namespace WarGames.Algorithms
             double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
             return distance;
         }
+
+        
     }
 }

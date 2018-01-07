@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WarGames.Models
 {
 
-    public class Item 
+    public class Item
     {
         public Item()
         {
@@ -26,13 +26,29 @@ namespace WarGames.Models
 
         public bool Active { get; set; }
 
+        public Place ItemLocation { get; set; }
+
         public int PlayCost { get; set; }
 
         public int Power { get; set; }
 
         public int Strength { get; set; }
 
-        public Place ItemLocation { get; set; }
+        public double Range { get; set; }
+
+        public double RangeDegradeRatio { get; set; }
+
+        public List<double> extendedEffectivenessRanges
+        {
+            get
+            {
+                return extendedEffectivenessRanges;
+            }
+            set
+            {
+                RangeDegredation();
+            }
+        }
 
         public bool Degrade()
         {
@@ -50,6 +66,27 @@ namespace WarGames.Models
 
             return true;
         }
+
+        /// <summary>
+        /// A power of 2 with a degradation ratio of .25 should be extended to [1.5, 1, .5, 0]
+        /// </summary>
+        /// <returns></returns>
+        public List<double> RangeDegredation()
+        {
+            List<double> extendedEffectiveness = new List<double>();
+            
+            double powerleft = this.Power;
+
+            do
+            {
+                double thisUnitPower = (this.RangeDegradeRatio * this.Power) - powerleft;
+                extendedEffectiveness.Add(thisUnitPower);
+            }
+            while (powerleft > 0);
+
+            return extendedEffectiveness;
+        }
+
 
         public bool Action()
         {

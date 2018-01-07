@@ -11,7 +11,7 @@ namespace WarGames.Models
 {
     public class Actor 
     {
-        // TODO: add locations and travel ability to Actor (not character, unit, ship, etc.)
+
         public int BasePower { get; set; }
 
         public int BaseStrength { get; set; }
@@ -107,14 +107,5 @@ namespace WarGames.Models
             return true;
         }
 
-
-        //TODO: add AssessTurn to Event.cs
-        public bool AssessTurn(Actor attacker, Actor defender)
-        {
-            int netEffect = attacker.EffectivePower - defender.EffectiveStrength;
-            // kill people and things here
-
-            return true;
-        }
     }
 }
