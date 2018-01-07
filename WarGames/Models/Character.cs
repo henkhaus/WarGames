@@ -41,8 +41,6 @@ namespace WarGames.Models
 
         public List<Unit> Units { get; set; }
 
-        public Place CharacterLocation { get; set; }
-
         public void GetStats()
         {
             // TODO: develop smart query

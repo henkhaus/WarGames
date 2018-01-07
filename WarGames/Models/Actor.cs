@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models.ActionModel;
+using WarGames.Algorithms;
 
 namespace WarGames.Models
 {
@@ -22,6 +24,41 @@ namespace WarGames.Models
 
         public bool Engaged { get; set; }
 
+        // travel props and calculations
+        [Description("Units per Earth Day")]
+        public double Speed { get; set; }
+
+        public Place CurrentLocation { get; set; }
+
+        public Place Destination { get; set; }
+
+        public Place Origination { get; set; }
+
+        public double DistanceToDestination { get; set; }
+
+        public TimeSpan TimeToDestination { get; set; }
+
+        public DateTime Arrival { get; set; }
+
+        public bool SetDestination(Place destination)
+        {
+            this.Destination = destination;
+            this.Origination = this.CurrentLocation;
+
+            // determine distance to destination
+            try
+            {
+                DistanceToDestination = Travel.DetermineDistance(this.Origination, this.Destination);
+                TimeToDestination = TimeSpan.FromDays(DistanceToDestination / this.Speed);
+                Arrival = DateTime.Now + TimeToDestination;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Could not determine distance or time to destination. {e.Message}");
+            }
+
+            return true;
+        }
 
         public bool Equip(Item item)
         {

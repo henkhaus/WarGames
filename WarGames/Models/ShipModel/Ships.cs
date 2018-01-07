@@ -30,42 +30,6 @@ namespace WarGames.Models.ShipModel
 
         public ShipClass ShipClass { get; set; }
 
-        // travel props and calculations
-        [Description("Units per Earth Day")]
-        public double Speed { get; set; }
-
-        public Place ShipLocation { get; set; }
-
-        public Place ShipDestination { get; set; }
-
-        public Place ShipOrigination { get; set; }
-
-        public double DistanceToDestination { get; set; }
-
-        public TimeSpan TimeToDestination { get; set; }
-
-        public DateTime Arrival { get; set; }
-
-        public bool SetDestination(Place destination)
-        {
-            this.ShipDestination = destination;
-            this.ShipOrigination = this.ShipLocation;
-
-            // determine distance to destination
-            try
-            {
-                DistanceToDestination = Travel.DetermineDistance(this.ShipOrigination, this.ShipDestination);
-                TimeToDestination = TimeSpan.FromDays(DistanceToDestination / Speed);
-                Arrival = DateTime.Now + TimeToDestination;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Could not determine distance or time to destination. {e.Message}");
-            }
-
-            return true;
-        }
-
         // TODO: use getter to calc new TotalDamage prop
     }
 

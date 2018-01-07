@@ -23,6 +23,7 @@ namespace WarGames.Models
 
         public Battle(Actor attacker, Actor defender)
         {
+
             Attacker = attacker;
             Defender = defender;
             BattleStatus = BattleStat.Created;
@@ -49,6 +50,7 @@ namespace WarGames.Models
 
         public void StartBattle()
         {
+            this.Attacker.
             BattleStatus = BattleStat.Active;
 
             // will run on a new thread
