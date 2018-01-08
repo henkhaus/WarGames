@@ -41,7 +41,7 @@ namespace WarGamesApp
             }
 
             // build players
-            if (players > 0)
+            if (players > 1)
             {
                 for (int i = 1; i <= players; i++)
                 {
@@ -65,6 +65,12 @@ namespace WarGamesApp
 
                     playersList.Add(player);
                 }
+            }
+            if (players <= 1)
+            {
+                Console.WriteLine("Must have more than one player. Please try again.");
+
+                BuildPayerRoutine();
             }
             return playersList;
         }

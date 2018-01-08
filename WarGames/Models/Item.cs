@@ -50,6 +50,10 @@ namespace WarGames.Models
             }
         }
 
+        /// <summary>
+        /// Items degrade by 1 Strength with each use
+        /// </summary>
+        /// <returns></returns>
         public bool Degrade()
         {
             //TODO: make a smarter degredation tool in Algorithms namespace
@@ -68,7 +72,7 @@ namespace WarGames.Models
         }
 
         /// <summary>
-        /// A power of 2 with a degradation ratio of .25 should be extended to [1.5, 1, .5, 0]
+        /// Example: A power of 2 with a degradation ratio of .25 should be extended to [1.5, 1, .5, 0]
         /// </summary>
         /// <returns></returns>
         public List<double> RangeDegredation()

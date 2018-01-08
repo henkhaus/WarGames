@@ -59,19 +59,22 @@ namespace WarGames.Models
         {
             double battleDistance = Travel.DetermineDistance(this.Attacker.CurrentLocation, this.Defender.CurrentLocation);
 
-            if (battleDistance <= 5)
+            int minDist = 5;
+
+            if (battleDistance <= minDist)
             {
                 BattleStatus = BattleStat.Active;
 
                 // will run on a new thread
-                Task.Run(() => AssessBattleStatus());
+                // TODO: loop of engagements
+
 
                 // Moves and Actions occur
             }
             else
             {
-                Console.WriteLine($"Cannot create battle: Parties must be within 5 units of distance. " +
-                    $"Parties are currently {battleDistance} units apart. Travel {battleDistance - 5} " +
+                Console.WriteLine($"Cannot create battle: Parties must be within {minDist} units of distance. " +
+                    $"Parties are currently {battleDistance} units apart. Travel {battleDistance - minDist} " +
                     $"units to create a battle.");
             }
         }
@@ -86,7 +89,15 @@ namespace WarGames.Models
             return battleStatus;
         }
 
-
+        public void BattleOn()
+        {
+            // do battle until actor has no more strength
+            do
+            {
+                //series of engagements go here
+            }
+            while (this.Attacker.EffectiveStrength >= 0 || this.Defender.EffectiveStrength >= 0);
+        }
 
     }
 }

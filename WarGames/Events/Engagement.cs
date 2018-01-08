@@ -4,18 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
+using WarGames.Models.ActionModel;
 
 namespace WarGames.Events
 {
     /// <summary>
-    /// Smallest unit of combat. Engagements exist with a battle.
+    /// Smallest unit of combat. Engagements exist within a battle.
+    /// Engagements will assess each party's actions against the target of that action.
+    /// We can think of this one set of turns in a battle.
     /// </summary>
     public class Engagement : Battle
     {
-        // used for engagements within a session
+        //TODO: add 
 
 
-
+        public int MyProperty { get; set; }
+        
+        
         public bool AssessTurn(Actor attacker, Actor defender)
         {
             int netEffect = attacker.EffectivePower - defender.EffectiveStrength;

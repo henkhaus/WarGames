@@ -34,6 +34,7 @@ namespace WarGames.Models.ActionModel
         {
 
         }
+
         public int DamageGiven { get; set; }
         public int DamageReceived { get; set; }
         public bool BattleAction { get; } = true;
