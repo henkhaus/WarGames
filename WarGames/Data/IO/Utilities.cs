@@ -11,7 +11,7 @@ namespace WarGames.Data.IO
     public static class Utilities
     {
 
-        public static bool Save<T>(T data)
+        public static bool Save<T>(List<T> data)
         {
             try
             {

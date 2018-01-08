@@ -59,14 +59,18 @@ namespace WarGamesApp
             // create characters
             Character robert = new Character("Robert", 5, 5);
             robert.Race = Race.Bob;
-            WarGames.Data.IO.Utilities.Save(robert);
-
-            Character newRob = WarGames.Data.IO.Utilities.Load<Character>();
-
-            Console.WriteLine(newRob.Race);
-
             Character amanda = new Character("Amanda", 5, 5);
             amanda.Race = Race.Cyborg;
+
+            List<Character> chars = new List<Character>();
+            chars.Add(robert);
+            //chars.Add(amanda);
+            WarGames.Data.IO.Utilities.Save(chars);
+
+            List<Character> loadedCharacters = WarGames.Data.IO.Utilities.Load<Character>();
+
+            Console.WriteLine(loadedCharacters.Count);
+
 
             // create places
             Place earth = new Place("earth", 0, 0, 0);
