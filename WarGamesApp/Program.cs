@@ -10,7 +10,8 @@ using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
 using WarGames.Users;
 using System.Threading;
-using WarGames.Data;
+using WarGames.Art;
+using System.Drawing;
 
 namespace WarGamesApp
 {
@@ -18,12 +19,11 @@ namespace WarGamesApp
     {
         static void Main(string[] args)
         {
-            /*
             // game startup
-            Console.WriteLine("Welcome to WarGames! (v.0.1.0.0)");
-            Console.WriteLine("################################");
-            Thread.Sleep(1 * 1000);
-            Console.WriteLine("Developed by Robert and Friends");
+            AsciiGenerator ascii = new AsciiGenerator();
+            ascii.WriteInAscii("WarGame");
+            Thread.Sleep(1 * 1000);         
+            ascii.info("Developed by Robert and Friends");
             Config.WaitandClear();
 
             // TODO: check for previous sessions and ask the user if they want to load it
@@ -54,30 +54,21 @@ namespace WarGamesApp
             }
             while (x.ToUpper() != "XX");
 
-            */
-            
+
+            /*
             // create characters
             Character robert = new Character("Robert", 5, 5);
             robert.Race = Race.Bob;
+
             Character amanda = new Character("Amanda", 5, 5);
             amanda.Race = Race.Cyborg;
 
-            List<Character> chars = new List<Character>();
-            chars.Add(robert);
-            //chars.Add(amanda);
-            WarGames.Data.IO.Utilities.Save(chars);
-
-            List<Character> loadedCharacters = WarGames.Data.IO.Utilities.Load<Character>();
-
-            Console.WriteLine(loadedCharacters.Count);
-
-
             // create places
             Place earth = new Place("earth", 0, 0, 0);
-            Place planetX = new Place("planet x", 9, 5, 15);
+            Place planetX = new Place("planet x", 5, 5, 5);
 
-            robert.CurrentLocation = earth;
-            amanda.CurrentLocation = planetX;
+            robert.CharacterLocation = earth;
+            amanda.CharacterLocation = planetX;
 
 
             // ships
@@ -87,7 +78,7 @@ namespace WarGamesApp
             Console.WriteLine(fighter.GetNomenclature());            
             Fighter aFighter = (Fighter)fighter;
             aFighter.Speed = 7;
-            aFighter.CurrentLocation = earth;
+            aFighter.ShipLocation = earth;
             
             //robert: take ship to planetX 
             robert.Ships.Add(aFighter);
@@ -95,25 +86,25 @@ namespace WarGamesApp
             robertsFighter.SetDestination(planetX);
 
             double DaystoDest = Convert.ToDouble(robertsFighter.TimeToDestination.TotalDays);
-            Console.WriteLine($"dist to {robertsFighter.Destination.Name}-{robertsFighter.DistanceToDestination} days-{DaystoDest} est.arrival-{robertsFighter.Arrival}");
+            Console.WriteLine($"dist to {robertsFighter.ShipDestination.Name}-{robertsFighter.DistanceToDestination} days-{DaystoDest} est.arrival-{robertsFighter.Arrival}");
 
             Console.WriteLine("travelling");
             // traveltime
             int travelTime = Convert.ToInt32(DaystoDest) * 10000;
             Thread.Sleep(travelTime);
 
-            robert.CurrentLocation = planetX;
+            robert.CharacterLocation = planetX;
 
 
             
             Battle battle;
-            if(robert.CurrentLocation == amanda.CurrentLocation)
+            if(robert.CharacterLocation == amanda.CharacterLocation)
             {
                 battle = new Battle(robert, amanda);
                 Console.WriteLine(battle.BattleStatus);
 
             }
-            
+            */
             Console.ReadLine();
             
         }
