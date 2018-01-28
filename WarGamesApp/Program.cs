@@ -12,6 +12,8 @@ using WarGames.Users;
 using System.Threading;
 using WarGames.Art;
 using System.Drawing;
+using Console = Colorful.Console;
+
 
 namespace WarGamesApp
 {
@@ -21,7 +23,7 @@ namespace WarGamesApp
         {
             // game startup
             AsciiGenerator ascii = new AsciiGenerator();
-            ascii.WriteInAscii("WarGame");
+            ascii.WriteInAscii("WarGames");
             Thread.Sleep(1 * 1000);         
             ascii.info("Developed by Robert and Friends");
             Config.WaitandClear();
