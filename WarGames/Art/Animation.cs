@@ -9,6 +9,7 @@ using Console = Colorful.Console;
 
 namespace WarGames.Art
 {
+    
     public static class Animation
     {
 
@@ -19,7 +20,8 @@ namespace WarGames.Art
 
         public static void Animate()
         {
-            Image image = Image.FromFile(@"C:\Users\rhenk\Desktop\ship.gif");
+
+            Image image = Properties.Resources.ship as Image;
             image = resizeImage(image, new Size(55, 30));
 
 
