@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Travel.cs" />
+    <Compile Include="Art\Animation.cs" />
     <Compile Include="Art\AsciiArt.cs" />
     <Compile Include="Data\IO\Utilities.cs" />
     <Compile Include="Events\Engagement.cs" />

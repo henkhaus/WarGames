@@ -22,12 +22,15 @@ namespace WarGamesApp
         static void Main(string[] args)
         {
             // game startup
+            Console.SetWindowSize(150, 40);
+            // set up art
             AsciiGenerator ascii = new AsciiGenerator();
-            ascii.WriteInAscii("WarGames");
-            Thread.Sleep(1 * 1000);         
-            ascii.info("Developed by Robert and Friends");
+            ascii.WriteInAscii("WarGames", Color.OrangeRed);
+            Animation.Animate();
+            Console.ReadLine();
+            ascii.Info("Developed by Robert and Friends");
             Config.WaitandClear();
-
+            ascii.ColorTest();
             // TODO: check for previous sessions and ask the user if they want to load it
 
             // game setup
