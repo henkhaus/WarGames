@@ -7,6 +7,7 @@ using WarGames.Users;
 
 namespace WarGames.Events
 {
+    [Serializable]
     public class Game
     {
         // games start here

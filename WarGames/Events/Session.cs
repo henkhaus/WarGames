@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarGames.Events
 {
+    [Serializable]
     public class Session
     {
         // used as a session of a game

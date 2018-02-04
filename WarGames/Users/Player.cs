@@ -7,6 +7,7 @@ using WarGames.Models;
 
 namespace WarGames.Users
 {
+    [Serializable]
     public class Player
     {
         // intended for 'outside of game' properties

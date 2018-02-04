@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarGames.Models
 {
+    [Serializable]
     public class Place
     {
         public Place()

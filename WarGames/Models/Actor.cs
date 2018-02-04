@@ -9,6 +9,7 @@ using WarGames.Algorithms;
 
 namespace WarGames.Models
 {
+    [Serializable]
     public class Actor 
     {
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
+using Newtonsoft.Json;
 
 namespace WarGames.Models.ShipModel
 {
@@ -24,6 +25,7 @@ namespace WarGames.Models.ShipModel
         C
     }
 
+    [Serializable]
     public abstract class Ship : Actor
     {
         public ShipType ShipType { get; set; }
@@ -34,6 +36,7 @@ namespace WarGames.Models.ShipModel
     }
 
     #region: Classes for specific ships
+    [Serializable]
     public class Fighter : Ship, IShip
     {
         public Fighter(ShipClass _shipClass)
@@ -51,6 +54,7 @@ namespace WarGames.Models.ShipModel
 
     }
 
+    [Serializable]
     public class Transport : Ship, IShip
     {
         public Transport(ShipClass _shipClass)

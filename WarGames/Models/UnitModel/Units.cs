@@ -26,6 +26,7 @@ namespace WarGames.Models.UnitModel
         Corps
     }
 
+    [Serializable]
     public abstract class Unit : Actor
     {
         public UnitType UnitType { get; set; }
@@ -36,6 +37,7 @@ namespace WarGames.Models.UnitModel
     }
 
     #region: Classes for specific units
+    [Serializable]
     public class Infantry : Unit, IUnit
     {
         public Infantry(UnitSize _unitSize)
@@ -53,6 +55,7 @@ namespace WarGames.Models.UnitModel
 
     }
 
+    [Serializable]
     public class Recon : Unit, IUnit
     {
         public Recon(UnitSize _unitSize)

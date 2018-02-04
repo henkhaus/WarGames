@@ -13,6 +13,7 @@ namespace WarGames.Events
     /// Engagements will assess each party's actions against the target of that action.
     /// We can think of this one set of turns in a battle.
     /// </summary>
+    [Serializable]
     public class Engagement : Battle
     {
         //TODO: add 

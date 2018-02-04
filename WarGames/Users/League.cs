@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarGames.Users
 {
+    [Serializable]
     public class League
     {
         // TODO: check uniqueness of league name

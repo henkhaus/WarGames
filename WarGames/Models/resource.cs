@@ -13,6 +13,7 @@ namespace WarGames.Models
         Metal
     }
 
+    [Serializable]
     public class Resource
     {
         public Resource(ResourceType _resourceType, int _resourceAmount)

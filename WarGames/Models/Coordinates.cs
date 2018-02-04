@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarGames.Models
 {
+    [Serializable]
     public class Coordinates
     {
         public Coordinates(double _x, double _y, double _z)

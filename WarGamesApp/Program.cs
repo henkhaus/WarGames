@@ -27,16 +27,22 @@ namespace WarGamesApp
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("WarGames", Color.OrangeRed);
             Animation.Animate();
-            Console.ReadLine();
             ascii.Info("Developed by Robert and Friends");
-            Config.WaitandClear();
-            ascii.ColorTest();
+            Console.ReadLine();
+            Console.Clear();
+
+            //ascii.ColorTest();
             // TODO: check for previous sessions and ask the user if they want to load it
 
             // game setup
             // create players routine
-            List<Player> players = Setup.BuildPayerRoutine();
-            Config.WaitandClear();
+            //List<Player> players = Setup.BuildPayerRoutine();
+            //Config.WaitandClear();
+
+            //WarGames.Data.IO.Utilities.Save<Player>(players);
+            List<Player> players = WarGames.Data.IO.Utilities.Load<Player>();
+            Console.WriteLine("Loading data");
+
 
             foreach (Player player in players)
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarGames.Models
 {
-
+    [Serializable]
     public class Item
     {
         public Item()

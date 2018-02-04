@@ -21,6 +21,7 @@ namespace WarGames.Models
     /// Battles are created and manages here. Fighting/Dueling happens 
     /// within Engagements. Battles exist within a session.
     /// </summary>
+    [Serializable]
     public class Battle : Session
     {
         public Battle()

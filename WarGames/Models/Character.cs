@@ -16,6 +16,7 @@ namespace WarGames.Models
         FourDimensioners
     }
 
+    [Serializable]
     public class Character : Actor
     {
 
