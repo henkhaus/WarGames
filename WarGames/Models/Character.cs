@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
 using WarGames.Models.ActionModel;
+using WarGames.Art;
+using Console = Colorful.Console;
 
 namespace WarGames.Models
 {
@@ -44,33 +46,34 @@ namespace WarGames.Models
 
         public void GetStats()
         {
-            // TODO: develop smart query
+            AsciiGenerator ascii = new AsciiGenerator();
+
+            // TODO: develop smart query to summarize stats
             // var shipQuery = Ships.GroupBy(elem => new { elem.ShipType, elem.ShipClass }).Select(x=>x);
 
-            Console.WriteLine($"Stats for {Name}:");
-            Console.WriteLine($"");
-            Console.WriteLine($"Base Power/Stregth {BasePower}/{BaseStrength}\n");
+            ascii.Help($"Stats for {Name}:");
+            ascii.Help($"");
+            ascii.Help($"Base Power/Stregth {BasePower}/{BaseStrength}\n");
 
-            Console.WriteLine($"Ships:");
+            ascii.Help($"Ships:");
             foreach (IShip ship in Ships)
             {
-                Console.WriteLine($"{ship.GetNomenclature()}");
+                ascii.Help($"{ship.GetNomenclature()}");
             }
 
-            Console.WriteLine("Units:");
+            ascii.Help("Units:");
             foreach (IUnit unit in Units)
             {
-                Console.WriteLine($"{unit.GetNomenclature()}");
+                ascii.Help($"{unit.GetNomenclature()}");
             }
 
-            Console.WriteLine("Items:");
+            ascii.Help("Items:");
             for (int i = 0; i < Items.Count; i++)
             {
                 //not implemented yet
-                Console.WriteLine($"None.");
+                ascii.Help($"None.");
             }
-            Console.WriteLine($"Stats Complete, press Enter to continue.");
-            Console.WriteLine($"");
+            ascii.Help($"Stats Complete, press Enter to continue.");
             Console.ReadLine();
             Console.Clear();
         }

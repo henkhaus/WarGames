@@ -8,18 +8,41 @@ using WarGames.Models.ActionModel;
 using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
 using WarGames.Models;
+using WarGames.Events;
+using WarGames.Art;
+using Console = Colorful.Console;
 
 namespace WarGamesApp
 {
     public static class Setup
     {
+
+        /// <summary>
+        /// Creates a new game.
+        /// </summary>
+        /// <returns></returns>
+        public static Game SetupNewGame()
+        {
+            List<Player> players = Setup.BuildPayerRoutine();
+            League league = Setup.BuildLeagueRoutine(players);
+            Game game = new Game(league);
+
+            // save it
+            List<Game> gameList = new List<Game>();
+            gameList.Add(game);
+            WarGames.Data.IO.Utilities.Save<Game>(gameList);
+
+            return game;
+        }
+
         /// <summary>
         /// Build players and characters.
         /// </summary>
         /// <returns></returns>
         public static List<Player> BuildPayerRoutine()
         {
-            Console.WriteLine("How many players?");
+            AsciiGenerator ascii = new AsciiGenerator();
+            ascii.Info("How many players?");
 
             string input = Console.ReadLine();
 
@@ -35,7 +58,7 @@ namespace WarGamesApp
             }
             catch (Exception)
             {
-                Console.WriteLine("You must enter a number. Please try again.");
+                ascii.Warn("You must enter a number. Please try again.");
 
                 BuildPayerRoutine();
             }
@@ -48,18 +71,18 @@ namespace WarGamesApp
                     string playerName = "";
                     string charName = "";
 
-                    Console.WriteLine("Player {0} Setup:", i);
-
+                    ascii.Warn($"Player {i} Setup:");
+                    
                     // get player name
-                    Console.WriteLine("Enter Player {0} Name:", i);
+                    ascii.Info($"Enter Player {i} Name:");
                     playerName = Console.ReadLine();
 
                     // get character name
-                    Console.WriteLine("Enter {0}'s Character Name:", playerName);
+                    ascii.Info($"Enter {playerName}'s Character Name:");
                     charName = Console.ReadLine();
 
                     Player player = new Player(playerName, charName);
-                    Console.WriteLine(player.Name + " Created!");
+                    ascii.Info(player.Name + " Created!");
 
                     SetRandomItems(player, 25);
 
@@ -68,7 +91,7 @@ namespace WarGamesApp
             }
             if (players <= 1)
             {
-                Console.WriteLine("Must have more than one player. Please try again.");
+                ascii.Danger("Must have more than one player. Please try again.");
 
                 BuildPayerRoutine();
             }
@@ -79,17 +102,20 @@ namespace WarGamesApp
         /// Create instance of league for a group of players.
         /// </summary>
         /// <param name="players"></param>
-        public static void BuildLeagueRoutine(List<Player> players)
+        public static League BuildLeagueRoutine(List<Player> players)
         {
+            AsciiGenerator ascii = new AsciiGenerator();
             string leagueName = "";
 
-            Console.WriteLine("Please enter a League Name for the players:");
+            ascii.Warn("Please enter a League Name for the players:");
 
             leagueName = Console.ReadLine();
 
             League league = new League(leagueName, players);
 
-            Console.WriteLine("{0} League established.", leagueName);
+            ascii.Info($"{leagueName} League established.");
+
+            return league;
         }
 
 
@@ -108,7 +134,7 @@ namespace WarGamesApp
 
             while (goalNum <= totalItems)
             {
-                Console.WriteLine(rando);
+                //Console.WriteLine(rando);
                 player.Character.Ships.AddRange(MakeShips(rando));
                 player.Character.Units.AddRange(MakeUnits(rando));
 

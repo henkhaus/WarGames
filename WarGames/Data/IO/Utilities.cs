@@ -6,11 +6,32 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using WarGames.Events;
+using WarGames.Art;
+using Console = Colorful.Console;
 
 namespace WarGames.Data.IO
 {
     public static class Utilities
     {
+
+        public static bool SaveGame(Game game)
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+            try
+            {
+                List<Game> gameList = new List<Game>();
+                gameList.Add(game);
+                Save<Game>(gameList);
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                ascii.Warn($"Could not save game. {e}");
+                return false;
+            }
+        }
 
         /// <summary>
         /// Takes a List of a type of data and saves it as JSON
@@ -20,22 +41,31 @@ namespace WarGames.Data.IO
         /// <returns></returns>
         public static bool Save<T>(List<T> data)
         {
+            AsciiGenerator ascii = new AsciiGenerator();
             try
             {
                 string name = typeof(T).Name;
-                ;
+                string path = $@"{name}.gd";
                 BinaryFormatter bf = new BinaryFormatter();
 
                 // serialize JSON to file
-                using (FileStream file = File.Create($@"{name}.gd"))
+                if (File.Exists(path))
+                {
+                    // if saves thing exists, add it to the data
+                    List<T> oldData = Load<T>();
+                    data.AddRange(oldData);
+                }
+
+                using (FileStream file = File.Create(path))
                 {
                     bf.Serialize(file, data);
                 }
+
                 return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Could not save. {e}");
+                ascii.Warn($"Could not save. {e}");
                 return false;
             }
         }
@@ -47,23 +77,31 @@ namespace WarGames.Data.IO
         /// <returns></returns>
         public static List<T> Load<T>()
         {
+            AsciiGenerator ascii = new AsciiGenerator();
             List<T> deserializedData = new List<T>();
 
             try
             {
                 string name = typeof(T).Name;
 
-                BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open($@"{name}.gd", FileMode.Open);
-                deserializedData = (List<T>)bf.Deserialize(file);
-                file.Close();
+                try
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open($@"{name}.gd", FileMode.Open);
+                    deserializedData = (List<T>)bf.Deserialize(file);
+                    file.Close();
+                }
+                catch (FileNotFoundException e)
+                {
+                    ascii.Info($"No previouly saved {name}.");
+                }
 
                 return deserializedData;
 
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Could not load. {e}");
+                ascii.Warn($"Could not load. {e}");
                 return deserializedData;
             }
 

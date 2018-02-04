@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models.ActionModel;
 using WarGames.Algorithms;
+using System.Runtime.Serialization;
 
 namespace WarGames.Models
 {
     [Serializable]
-    public class Actor 
+    public class Actor
     {
 
         public int BasePower { get; set; }

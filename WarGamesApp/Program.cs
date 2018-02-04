@@ -11,6 +11,8 @@ using WarGames.Models.UnitModel;
 using WarGames.Users;
 using System.Threading;
 using WarGames.Art;
+using WarGames.Events;
+using WarGames.Data;
 using System.Drawing;
 using Console = Colorful.Console;
 
@@ -32,25 +34,62 @@ namespace WarGamesApp
             Console.Clear();
 
             //ascii.ColorTest();
+            // game setup
             // TODO: check for previous sessions and ask the user if they want to load it
 
-            // game setup
-            // create players routine
-            //List<Player> players = Setup.BuildPayerRoutine();
-            //Config.WaitandClear();
+            Game game = null;
 
-            //WarGames.Data.IO.Utilities.Save<Player>(players);
-            List<Player> players = WarGames.Data.IO.Utilities.Load<Player>();
-            Console.WriteLine("Loading data");
+            List<Game> games = WarGames.Data.IO.Utilities.Load<Game>();
+            if(games.Count == 0)
+            {
+                // set up new game
+                game = Setup.SetupNewGame();
+            }
+            else
+            {
+                ascii.Warn("Available Games: ");
+                // present games to load or new game
+                foreach (Game savedGame in games)
+                {
+                    ascii.Info(savedGame.LeagueType.LeagueName);
+                }
+
+                ascii.Info("Type a league name in from above to load the game or type 'new' to create a new game.");
+
+                string maybeLeague = Console.ReadLine().ToLower();
+
+                // new game anyway
+                if (maybeLeague == "new")
+                {
+                    game = Setup.SetupNewGame();
+                }
+
+                // grab the game and use it
+                foreach (Game savedGame in games)
+                {
+                    if(maybeLeague == savedGame.LeagueType.LeagueName.ToLower())
+                    {
+                        game = savedGame;
+                    } 
+                }
+
+                // league not found or something went odd.. just make a new game
+                if (game == null)
+                {
+                    ascii.Info("Game not found. Creating new game.");
+                    game = Setup.SetupNewGame();
+                }
+            }
 
 
+            Console.WriteLine("Lets see them stats first.");
+
+            List<Player> players = game.LeagueType.Players;
             foreach (Player player in players)
             {
                 player.Character.GetStats();
             }
 
-            // create league routine
-            Setup.BuildLeagueRoutine(players);
             Config.WaitandClear();
             
 
