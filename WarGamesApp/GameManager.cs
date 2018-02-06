@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using WarGames.Users;
 using WarGames.Models.ActionModel;
 using WarGames.Models.ShipModel;
@@ -11,11 +12,37 @@ using WarGames.Models;
 using WarGames.Events;
 using WarGames.Art;
 using Console = Colorful.Console;
+using WarGames.Data.IO;
 
 namespace WarGamesApp
 {
-    public static class Setup
+    public static class GameManager
     {
+
+        public static string Menu()
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+            ascii.WriteInAscii("Menu", Color.AntiqueWhite);
+            ascii.Help("");
+            ascii.Help("Save Game: s or save");
+            ascii.Help("Load Game: l or load");
+            ascii.Help("Exit Game: xx or exit");
+
+
+            string x = Console.ReadLine();
+            return x;
+        }
+
+
+        public static string Help()
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+            ascii.WriteInAscii("Help", Color.AntiqueWhite);
+            // TODO: make the help dialog
+
+            string x = Console.ReadLine();
+            return x;
+        }
 
         /// <summary>
         /// Creates a new game.
@@ -23,16 +50,97 @@ namespace WarGamesApp
         /// <returns></returns>
         public static Game SetupNewGame()
         {
-            List<Player> players = Setup.BuildPayerRoutine();
-            League league = Setup.BuildLeagueRoutine(players);
+            List<Player> players = GameManager.BuildPayerRoutine();
+            League league = GameManager.BuildLeagueRoutine(players);
             Game game = new Game(league);
 
             // save it
-            List<Game> gameList = new List<Game>();
-            gameList.Add(game);
-            WarGames.Data.IO.Utilities.Save<Game>(gameList);
+            WarGames.Data.IO.SaveLoad.SaveGame(game);
 
             return game;
+        }
+
+        /// <summary>
+        /// e
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public static Game LoadGame()
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+
+            Game game = null;
+
+            List<Game> games = SaveLoad.Load<Game>();
+            if (games.Count == 0)
+            {
+                // set up new game
+                game = GameManager.SetupNewGame();
+            }
+            else
+            {
+                ascii.Warn("Available Games: ");
+                // present games to load or new game
+                foreach (Game savedGame in games)
+                {
+                    ascii.Info(savedGame.LeagueType.LeagueName);
+                }
+
+                ascii.Info("Type a league name in from above to load the game or type 'new' to create a new game.");
+
+                string maybeLeague = Console.ReadLine().ToLower();
+
+                // new game anyway
+                if (maybeLeague == "new")
+                {
+                    game = WarGamesApp.GameManager.SetupNewGame();
+                }
+
+                // grab the game and use it
+                foreach (Game savedGame in games)
+                {
+                    if (maybeLeague == savedGame.LeagueType.LeagueName.ToLower())
+                    {
+                        game = savedGame;
+                    }
+                }
+
+                // league not found or something went odd.. just make a new game
+                if (game == null)
+                {
+                    ascii.Info("Game not found. Creating new game.");
+                    game = GameManager.SetupNewGame();
+                }
+            }
+            return game;
+            
+        }
+
+
+        public static bool ExitGame(Game game)
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+
+            ascii.Warn("Are you sure you want to exit the game? y/n ");
+            string x = Console.ReadLine();
+
+            if (KeyEvent.DetermineInput(x, game) == "yes")
+            {
+                ascii.Warn("Do you want to save the game? y/n ");
+                string y = Console.ReadLine();
+                if (KeyEvent.DetermineInput(x, game) == "yes")
+                {
+                    ascii.Warn("Saving...");
+                    WarGames.Data.IO.SaveLoad.SaveGame(game);
+                }
+                Environment.Exit(0);
+            }
+            else
+            {
+                ascii.Warn("Back to the game!");
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -134,7 +242,7 @@ namespace WarGamesApp
 
             while (goalNum <= totalItems)
             {
-                //Console.WriteLine(rando);
+                Console.WriteLine(rando);
                 player.Character.Ships.AddRange(MakeShips(rando));
                 player.Character.Units.AddRange(MakeUnits(rando));
 
@@ -152,7 +260,7 @@ namespace WarGamesApp
             List<Ship> ships = new List<Ship>();
 
             ShipFactory shipFactory = new ShipFactory();
-            Random rand = new Random();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             for (int i = 0; i < howMany; i++)
             {
@@ -174,7 +282,7 @@ namespace WarGamesApp
             List<Unit> units = new List<Unit>();
 
             UnitFactory unitFactory = new UnitFactory();
-            Random rand = new Random();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             for (int i = 0; i < howMany; i++)
             {
@@ -186,5 +294,7 @@ namespace WarGamesApp
 
             return units;
         }
+
+
     }
 }

@@ -12,19 +12,21 @@ namespace WarGames.Models.UnitModel
     public enum UnitType
     {
         Recon,
-        Infantry
+        Strike
     }
 
     public enum UnitSize
     {
-        //TODO: use Navy terms like Fleet, Battle Group, etc. ??
-        [Description("Battalion")]
-        Battalion,
-        [Description("Brigade")]
-        Brigade,
-        [Description("Corps")]
-        Corps
+        [Description("Element")]
+        Element,
+        [Description("Squadron")]
+        Squadron,
+        [Description("Battle Group")]
+        BattleGroup,
+        [Description("Fleet")]
+        Fleet
     }
+
 
     [Serializable]
     public abstract class Unit : Actor
@@ -38,9 +40,9 @@ namespace WarGames.Models.UnitModel
 
     #region: Classes for specific units
     [Serializable]
-    public class Infantry : Unit, IUnit
+    public class Strike : Unit, IUnit
     {
-        public Infantry(UnitSize _unitSize)
+        public Strike(UnitSize _unitSize)
         {
             unitSize = _unitSize;
         }

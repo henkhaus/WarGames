@@ -13,8 +13,8 @@ namespace WarGames.Models.UnitModel
         {
             switch (unitType)
             {
-                case UnitType.Infantry:
-                    return new Infantry(unitSize);
+                case UnitType.Strike:
+                    return new Strike(unitSize);
 
                 case UnitType.Recon:
                     return new Recon(unitSize);

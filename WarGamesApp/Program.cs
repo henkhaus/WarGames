@@ -15,6 +15,7 @@ using WarGames.Events;
 using WarGames.Data;
 using System.Drawing;
 using Console = Colorful.Console;
+using WarGames.Data.IO;
 
 
 namespace WarGamesApp
@@ -34,52 +35,18 @@ namespace WarGamesApp
             Console.Clear();
 
             //ascii.ColorTest();
+            /*
+            List<Unit> units = GameManager.MakeUnits(50);
+            foreach (Unit unit in units)
+            {
+                
+                double cenverted = UnitConversion.Convert(1, unit.UnitSize, UnitSize.Fleet);
+                Console.WriteLine($"one {unit.UnitSize} is :{cenverted} fleets");
+            }
+            */
+
             // game setup
-            // TODO: check for previous sessions and ask the user if they want to load it
-
-            Game game = null;
-
-            List<Game> games = WarGames.Data.IO.Utilities.Load<Game>();
-            if(games.Count == 0)
-            {
-                // set up new game
-                game = Setup.SetupNewGame();
-            }
-            else
-            {
-                ascii.Warn("Available Games: ");
-                // present games to load or new game
-                foreach (Game savedGame in games)
-                {
-                    ascii.Info(savedGame.LeagueType.LeagueName);
-                }
-
-                ascii.Info("Type a league name in from above to load the game or type 'new' to create a new game.");
-
-                string maybeLeague = Console.ReadLine().ToLower();
-
-                // new game anyway
-                if (maybeLeague == "new")
-                {
-                    game = Setup.SetupNewGame();
-                }
-
-                // grab the game and use it
-                foreach (Game savedGame in games)
-                {
-                    if(maybeLeague == savedGame.LeagueType.LeagueName.ToLower())
-                    {
-                        game = savedGame;
-                    } 
-                }
-
-                // league not found or something went odd.. just make a new game
-                if (game == null)
-                {
-                    ascii.Info("Game not found. Creating new game.");
-                    game = Setup.SetupNewGame();
-                }
-            }
+            Game game = GameManager.LoadGame();
 
 
             Console.WriteLine("Lets see them stats first.");
@@ -98,9 +65,9 @@ namespace WarGamesApp
             do
             {
                 x = Console.ReadLine();
-                KeyEvent.DetermineInput(x);
+                KeyEvent.DetermineInput(x, game);
 
-                //Console.WriteLine(x + " was pressed");
+                Console.WriteLine(x + " was pressed");
             }
             while (x.ToUpper() != "XX");
 

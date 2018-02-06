@@ -10,9 +10,10 @@ using WarGames.Events;
 using WarGames.Art;
 using Console = Colorful.Console;
 
+
 namespace WarGames.Data.IO
 {
-    public static class Utilities
+    public static class SaveLoad
     {
 
         public static bool SaveGame(Game game)
@@ -23,6 +24,7 @@ namespace WarGames.Data.IO
                 List<Game> gameList = new List<Game>();
                 gameList.Add(game);
                 Save<Game>(gameList);
+                ascii.Info("Game Saved");
                 return true;
 
             }
@@ -33,6 +35,8 @@ namespace WarGames.Data.IO
             }
         }
 
+
+        
         /// <summary>
         /// Takes a List of a type of data and saves it as JSON
         /// </summary>
