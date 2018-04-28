@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using WarGames.Events;
 using WarGames.Art;
 using Console = Colorful.Console;
-
+using System.Threading;
 
 namespace WarGames.Data.IO
 {
@@ -25,6 +25,7 @@ namespace WarGames.Data.IO
                 gameList.Add(game);
                 Save<Game>(gameList);
                 ascii.Info("Game Saved");
+                Thread.Sleep(1 * 1000);
                 return true;
 
             }

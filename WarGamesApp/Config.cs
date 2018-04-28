@@ -11,7 +11,7 @@ namespace WarGamesApp
     {
         public static void WaitandClear()
         {
-            Thread.Sleep(2 * 1000);
+            Thread.Sleep(1 * 1000);
             Console.Clear();
         }
     }

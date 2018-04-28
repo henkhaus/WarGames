@@ -52,6 +52,11 @@ namespace WarGames.Art
             Console.WriteLine(text, Color.Green);
         }
 
+        public void Muted(string text)
+        {
+            Console.WriteLine(text, Color.DarkGray);
+        }
+
         public void Help(string text)
         {
             Console.WriteLine(text, Color.LightSkyBlue);

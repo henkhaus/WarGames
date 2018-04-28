@@ -20,6 +20,13 @@ namespace WarGamesApp
         /// <returns></returns>
         public static string DetermineInput(string input, Game game)
         {
+            string[] args = Parse(input);
+
+            foreach (string arg in args)
+            {
+
+            }
+
             string output = "";
 
             // formal args passed here after going through Parse()
@@ -38,6 +45,11 @@ namespace WarGamesApp
                     output = "no";
                     return output;
 
+                case "help":
+                case "h":
+                    GameManager.Help();
+                    return output;
+
                 case "menu":
                 case "m":
                     //menu
@@ -47,12 +59,13 @@ namespace WarGamesApp
 
                 case "save":
                 case "s":
-                    output = SaveLoad.SaveGame(game).ToString();
+                    SaveLoad.SaveGame(game);
                     return output;
 
                 case "load":
                 case "l":
-                    // need to figure out best way to pass new game obj back to program.cs
+                    // TODO: need to figure out best way to pass new game obj back to program.cs
+                    // we want to switch games
                     //output = GameManager.LoadGame();
                     return output;
 
@@ -72,19 +85,17 @@ namespace WarGamesApp
             return output;
         }
 
+
         /// <summary>
         /// Cleans raw input from user into args the game can decifer.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static List<string> Parse(string input)
+        public static string[] Parse(string input)
         {
-            // arg format: character/player, actor, adds, action
-            // TODO: implements args parsing
-            List<string> output = new List<string>();
+            string[] output = input.Split(' ');
 
-            
-
+            // add other cleaning here if needed
 
             return output;
         }

@@ -30,7 +30,7 @@ namespace WarGamesApp
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("WarGames", Color.OrangeRed);
             Animation.Animate();
-            ascii.Info("Developed by Robert and Friends");
+            ascii.Info("Created by Robert Henkhaus with contributions from friends");
             Console.ReadLine();
             Console.Clear();
 
@@ -58,16 +58,19 @@ namespace WarGamesApp
             }
 
             Config.WaitandClear();
+            ascii.Info("Game started!");
             
 
             // main game routine
             string x;
             do
             {
+                GameManager.ShowAvailableArgs();
+                ascii.Info("waiting for your move...");
                 x = Console.ReadLine();
+                
                 KeyEvent.DetermineInput(x, game);
-
-                Console.WriteLine(x + " was pressed");
+                Console.Clear();
             }
             while (x.ToUpper() != "XX");
 

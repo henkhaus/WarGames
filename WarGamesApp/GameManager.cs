@@ -23,11 +23,12 @@ namespace WarGamesApp
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("Menu", Color.AntiqueWhite);
-            ascii.Help("");
+
             ascii.Help("Save Game: s or save");
             ascii.Help("Load Game: l or load");
             ascii.Help("Exit Game: xx or exit");
-
+            ascii.Help("");
+            ascii.Help("Return to the game by pressing Enter");
 
             string x = Console.ReadLine();
             return x;
@@ -38,11 +39,41 @@ namespace WarGamesApp
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("Help", Color.AntiqueWhite);
-            // TODO: make the help dialog
-
+            
+            ascii.Help("Open Menu: m or menu");
+            ascii.Help("Exit Game: xx or exit");
+            ascii.Help("");
+            ascii.Help("");
+            ascii.Help("Return to the game by pressing Enter");
+            
             string x = Console.ReadLine();
             return x;
         }
+
+
+        public static string ShowAvailableArgs()
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+            // TODO have a nice looking console for these
+            ascii.Muted("Open Menu: m or menu");
+            ascii.Muted("Open Help: h or help");
+            ascii.Info("Check Inventory: i or inventory");
+            ascii.Info("See Units and Positions: u or units");
+
+            
+            string x = Console.ReadLine();
+            return x;
+        }
+
+        public enum Difficulty
+        {
+            Easy, 
+            Medium, 
+            Hard
+        }
+
+        //TODO: add difficulty settings for the game, this would change starting allocation and computer players
+        //public static Difficulty SetDifficulty(){}
 
         /// <summary>
         /// Creates a new game.
@@ -60,6 +91,7 @@ namespace WarGamesApp
             return game;
         }
 
+
         /// <summary>
         /// e
         /// </summary>
@@ -71,7 +103,9 @@ namespace WarGamesApp
 
             Game game = null;
 
+            // get previously saved games
             List<Game> games = SaveLoad.Load<Game>();
+
             if (games.Count == 0)
             {
                 // set up new game
@@ -80,6 +114,7 @@ namespace WarGamesApp
             else
             {
                 ascii.Warn("Available Games: ");
+
                 // present games to load or new game
                 foreach (Game savedGame in games)
                 {
@@ -105,7 +140,7 @@ namespace WarGamesApp
                     }
                 }
 
-                // league not found or something went odd.. just make a new game
+                // league not found or something went odd... just make a new game
                 if (game == null)
                 {
                     ascii.Info("Game not found. Creating new game.");
@@ -128,11 +163,12 @@ namespace WarGamesApp
             {
                 ascii.Warn("Do you want to save the game? y/n ");
                 string y = Console.ReadLine();
-                if (KeyEvent.DetermineInput(x, game) == "yes")
+                if (KeyEvent.DetermineInput(y, game) == "yes")
                 {
                     ascii.Warn("Saving...");
                     WarGames.Data.IO.SaveLoad.SaveGame(game);
                 }
+                ascii.Info("Thanks for playing!");
                 Environment.Exit(0);
             }
             else
@@ -150,6 +186,7 @@ namespace WarGamesApp
         public static List<Player> BuildPayerRoutine()
         {
             AsciiGenerator ascii = new AsciiGenerator();
+
             ascii.Info("How many players?");
 
             string input = Console.ReadLine();
@@ -172,7 +209,7 @@ namespace WarGamesApp
             }
 
             // build players
-            if (players > 1)
+            if (players > 0)
             {
                 for (int i = 1; i <= players; i++)
                 {
@@ -197,9 +234,9 @@ namespace WarGamesApp
                     playersList.Add(player);
                 }
             }
-            if (players <= 1)
+            if (players <= 0)
             {
-                ascii.Danger("Must have more than one player. Please try again.");
+                ascii.Danger("Must have at least one player. Please try again.");
 
                 BuildPayerRoutine();
             }
@@ -238,11 +275,10 @@ namespace WarGamesApp
 
             Random rand = new Random();
 
-            int rando = rand.Next(1, totalItems);
-
             while (goalNum <= totalItems)
             {
-                Console.WriteLine(rando);
+                int rando = rand.Next(1, totalItems);
+                //Console.WriteLine(rando);
                 player.Character.Ships.AddRange(MakeShips(rando));
                 player.Character.Units.AddRange(MakeUnits(rando));
 
@@ -264,7 +300,8 @@ namespace WarGamesApp
 
             for (int i = 0; i < howMany; i++)
             {
-                IShip ship = shipFactory.CreateShip(Utilities.RandomEnumValue<ShipType>(rand), Utilities.RandomEnumValue<ShipClass>(rand));
+                IShip ship = shipFactory.CreateShip(Utilities.RandomEnumValue<ShipType>(rand), 
+                                                    Utilities.RandomEnumValue<ShipClass>(rand));
                 //Console.WriteLine(ship.GetNomenclature());
                 ships.Add((Ship)ship);
             }
@@ -286,8 +323,8 @@ namespace WarGamesApp
 
             for (int i = 0; i < howMany; i++)
             {
-                // TODO: fix issue where this only creates battalions
-                IUnit unit = unitFactory.CreateUnit(Utilities.RandomEnumValue<UnitType>(rand), Utilities.RandomEnumValue<UnitSize>(rand));
+                IUnit unit = unitFactory.CreateUnit(Utilities.RandomEnumValue<UnitType>(rand), 
+                                                    Utilities.RandomEnumValue<UnitSize>(rand));
                 //Console.WriteLine(unit.GetNomenclature());
                 units.Add((Unit)unit);
             }
