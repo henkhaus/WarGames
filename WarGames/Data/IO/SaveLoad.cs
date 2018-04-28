@@ -96,7 +96,7 @@ namespace WarGames.Data.IO
                     deserializedData = (List<T>)bf.Deserialize(file);
                     file.Close();
                 }
-                catch (FileNotFoundException e)
+                catch (FileNotFoundException)
                 {
                     ascii.Info($"No previouly saved {name}.");
                 }
