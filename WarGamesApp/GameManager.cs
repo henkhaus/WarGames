@@ -18,53 +18,6 @@ namespace WarGamesApp
 {
     public static class GameManager
     {
-
-        public static string Menu()
-        {
-            AsciiGenerator ascii = new AsciiGenerator();
-            ascii.WriteInAscii("Menu", Color.AntiqueWhite);
-
-            ascii.Help("Save Game: s or save");
-            ascii.Help("Load Game: l or load");
-            ascii.Help("Exit Game: xx or exit");
-            ascii.Help("");
-            ascii.Help("Return to the game by pressing Enter");
-
-            string x = Console.ReadLine();
-            return x;
-        }
-
-
-        public static string Help()
-        {
-            AsciiGenerator ascii = new AsciiGenerator();
-            ascii.WriteInAscii("Help", Color.AntiqueWhite);
-            
-            ascii.Help("Open Menu: m or menu");
-            ascii.Help("Exit Game: xx or exit");
-            ascii.Help("");
-            ascii.Help("");
-            ascii.Help("Return to the game by pressing Enter");
-            
-            string x = Console.ReadLine();
-            return x;
-        }
-
-
-        public static string ShowAvailableArgs()
-        {
-            AsciiGenerator ascii = new AsciiGenerator();
-            // TODO have a nice looking console for these
-            ascii.Muted("Open Menu: m or menu");
-            ascii.Muted("Open Help: h or help");
-            ascii.Info("Check Inventory: i or inventory");
-            ascii.Info("See Units and Positions: u or units");
-
-            
-            string x = Console.ReadLine();
-            return x;
-        }
-
         public enum Difficulty
         {
             Easy, 
@@ -149,34 +102,6 @@ namespace WarGamesApp
             }
             return game;
             
-        }
-
-
-        public static bool ExitGame(Game game)
-        {
-            AsciiGenerator ascii = new AsciiGenerator();
-
-            ascii.Warn("Are you sure you want to exit the game? y/n ");
-            string x = Console.ReadLine();
-
-            if (KeyEvent.DetermineInput(x, game) == "yes")
-            {
-                ascii.Warn("Do you want to save the game? y/n ");
-                string y = Console.ReadLine();
-                if (KeyEvent.DetermineInput(y, game) == "yes")
-                {
-                    ascii.Warn("Saving...");
-                    WarGames.Data.IO.SaveLoad.SaveGame(game);
-                }
-                ascii.Info("Thanks for playing!");
-                Environment.Exit(0);
-            }
-            else
-            {
-                ascii.Warn("Back to the game!");
-                return false;
-            }
-            return true;
         }
 
         /// <summary>

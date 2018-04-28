@@ -29,59 +29,18 @@ namespace WarGamesApp
 
             string output = "";
 
+            MenuCommand menu = new MenuCommand();
+            List<ICommand> commands = menu.GetCommands();
+
             // formal args passed here after going through Parse()
-            switch (input.ToLower())
+            foreach (var command in commands)
             {
-                case "":
+                if (command.Triggers.Contains(input.ToLower()))
+                {
+                    output = command.Execute(game);
                     return output;
-
-                case "yes":
-                case "y":
-                    output = "yes";
-                    return output;
-
-                case "no":
-                case "n":
-                    output = "no";
-                    return output;
-
-                case "help":
-                case "h":
-                    GameManager.Help();
-                    return output;
-
-                case "menu":
-                case "m":
-                    //menu
-                    output = GameManager.Menu();
-                    output = DetermineInput(output, game);
-                    return output;
-
-                case "save":
-                case "s":
-                    SaveLoad.SaveGame(game);
-                    return output;
-
-                case "load":
-                case "l":
-                    // TODO: need to figure out best way to pass new game obj back to program.cs
-                    // we want to switch games
-                    //output = GameManager.LoadGame();
-                    return output;
-
-                case "exit":
-                case "xx":
-                    GameManager.ExitGame(game);
-                    return output;
-
-
-
-                
-                   
-                default:
-                    break;
+                }
             }
-
             return output;
         }
 

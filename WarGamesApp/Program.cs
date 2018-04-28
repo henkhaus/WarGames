@@ -59,16 +59,17 @@ namespace WarGamesApp
 
             Config.WaitandClear();
             ascii.Info("Game started!");
-            
+            MenuCommand menu = new MenuCommand();
+
 
             // main game routine
             string x;
             do
             {
-                GameManager.ShowAvailableArgs();
+                menu.Execute(game);
                 ascii.Info("waiting for your move...");
                 x = Console.ReadLine();
-                
+                // TODO: solve the double entering of cammands issue
                 KeyEvent.DetermineInput(x, game);
                 Console.Clear();
             }
