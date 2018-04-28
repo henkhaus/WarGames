@@ -1,3 +1,5 @@
 # WarGames
+## Currently in Development
 
-Early stages of a game that my friends circle is talking about developing.
+## About
+A text-based space strategy game played. The goal of this game is to conquer all enemy forces and take over the WarGames universe.
