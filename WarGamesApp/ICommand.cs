@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarGames.Events;
+using WarGames.Users;
 
 namespace WarGamesApp
 {
@@ -16,6 +17,6 @@ namespace WarGamesApp
         List<string> Triggers { get; set; }
 
         // execution of the command
-        string Execute(Game game);
+        string Execute(Game game, Player player);
     }
 }

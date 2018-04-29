@@ -7,6 +7,7 @@ using WarGames.Models;
 
 namespace WarGames.Users
 {
+
     [Serializable]
     public class Player
     {
@@ -29,7 +30,8 @@ namespace WarGames.Users
 
         public Character Character { get; set; }
 
-
+        // will be true if it is this player's turn
+        public bool Turn { get; set; } = false;
 
     }
 }

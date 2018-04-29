@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Events;
 using WarGames.Data.IO;
+using WarGames.Users;
 
 namespace WarGamesApp
 {
@@ -14,11 +15,11 @@ namespace WarGamesApp
     public static class KeyEvent
     {
         /// <summary>
-        /// Acts a jump point for all actions given by the user during a game.
+        /// Acts a jump point for all commands given by the user during a game.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string DetermineInput(string input, Game game)
+        public static string DetermineInput(string input, Game game, Player player)
         {
             string[] args = Parse(input);
 
@@ -37,7 +38,7 @@ namespace WarGamesApp
             {
                 if (command.Triggers.Contains(input.ToLower()))
                 {
-                    output = command.Execute(game);
+                    output = command.Execute(game, player);
                     return output;
                 }
             }

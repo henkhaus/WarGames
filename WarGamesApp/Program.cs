@@ -63,15 +63,28 @@ namespace WarGamesApp
 
 
             // main game routine
-            string x;
+            string x = "";
             do
             {
-                menu.Execute(game);
-                ascii.Info("waiting for your move...");
-                x = Console.ReadLine();
-                // TODO: solve the double entering of cammands issue
-                KeyEvent.DetermineInput(x, game);
                 Console.Clear();
+                // go through player turns
+                foreach (Player player in players)
+                {
+                    player.Turn = true;
+                    while (player.Turn)
+                    {
+                        menu.Execute(game, player);
+                        ascii.Info(player.Name + "'s move...");
+                        x = Console.ReadLine();
+
+                        KeyEvent.DetermineInput(x, game, player);
+                        Console.Clear();
+                    }
+
+                }
+                ascii.Info("computer's turn");
+
+
             }
             while (x.ToUpper() != "XX");
 
