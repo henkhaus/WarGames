@@ -18,15 +18,6 @@ namespace WarGamesApp
 {
     public static class GameManager
     {
-        public enum Difficulty
-        {
-            Easy, 
-            Medium, 
-            Hard
-        }
-
-        //TODO: add difficulty settings for the game, this would change starting allocation and computer players
-        //public static Difficulty SetDifficulty(){}
 
         /// <summary>
         /// Creates a new game.
@@ -36,8 +27,9 @@ namespace WarGamesApp
         {
             List<Player> players = GameManager.BuildPayerRoutine();
             League league = GameManager.BuildLeagueRoutine(players);
+            // get difficulty
             Game game = new Game(league);
-
+            game.Difficulty = SetDifficulty();
             // save it
             WarGames.Data.IO.SaveLoad.SaveGame(game);
 
@@ -102,6 +94,44 @@ namespace WarGamesApp
             }
             return game;
             
+        }
+
+        public static Difficulty SetDifficulty() {
+            AsciiGenerator ascii = new AsciiGenerator();
+
+            ascii.Info("Select a difficulty for the Game.");
+
+
+            int selector = 0;
+            foreach (var mode in Enum.GetValues(typeof(Difficulty)))
+            {
+                ascii.Info($"{selector}. {mode.ToString()}");
+                selector += 1;
+            }
+
+            string selection = Console.ReadLine();
+            int selectionInt;
+
+            // make sure selection is int and one of the enum values 
+            if(Int32.TryParse(selection, out selectionInt))
+            {
+                if(selectionInt <= Enum.GetNames(typeof(Difficulty)).Length)
+                {
+                    Difficulty selected = (Difficulty)selectionInt;
+                    ascii.Info($"{selected.ToString()}");
+                    return selected;
+                }
+                else
+                {
+                    ascii.Info("Ivalid, going with easy...");
+                    return Difficulty.Easy;
+                }
+            }
+            else
+            {
+                ascii.Info("Ivalid, going with easy...");
+                return Difficulty.Easy;
+            }
         }
 
         /// <summary>
@@ -225,8 +255,8 @@ namespace WarGamesApp
 
             for (int i = 0; i < howMany; i++)
             {
-                IShip ship = shipFactory.CreateShip(Utilities.RandomEnumValue<ShipType>(rand), 
-                                                    Utilities.RandomEnumValue<ShipClass>(rand));
+                IShip ship = shipFactory.CreateShip(WarGames.Models.Utilities.RandomEnumValue<ShipType>(rand),
+                                                    WarGames.Models.Utilities.RandomEnumValue<ShipClass>(rand));
                 //Console.WriteLine(ship.GetNomenclature());
                 ships.Add((Ship)ship);
             }
@@ -248,8 +278,8 @@ namespace WarGamesApp
 
             for (int i = 0; i < howMany; i++)
             {
-                IUnit unit = unitFactory.CreateUnit(Utilities.RandomEnumValue<UnitType>(rand), 
-                                                    Utilities.RandomEnumValue<UnitSize>(rand));
+                IUnit unit = unitFactory.CreateUnit(WarGames.Models.Utilities.RandomEnumValue<UnitType>(rand),
+                                                    WarGames.Models.Utilities.RandomEnumValue<UnitSize>(rand));
                 //Console.WriteLine(unit.GetNomenclature());
                 units.Add((Unit)unit);
             }

@@ -19,7 +19,7 @@ namespace WarGames.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -67,6 +67,73 @@ namespace WarGames.Properties {
             get {
                 object obj = ResourceManager.GetObject("ship", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triton
+        ///Naiad
+        ///Thalassa
+        ///Despina
+        ///Galetea
+        ///Larissa
+        ///Proteus
+        ///Halimede
+        ///Psamathe
+        ///Sao
+        ///Laomedeia
+        ///Neso
+        ///Ariel
+        ///Umbriel
+        ///Titania
+        ///Oberon
+        ///Miranda
+        ///Cordelia
+        ///Ophelia
+        ///Bianca
+        ///Cressida
+        ///Desdemona
+        ///Juliet
+        ///Portia
+        ///Rosalind
+        ///Belinda
+        ///Puck
+        ///Caliban
+        ///Sycorax
+        ///Prospero
+        ///Setebos
+        ///Stephano
+        ///Trinculo
+        ///Francisco
+        ///Margaret
+        ///Ferdinand
+        ///Perdita
+        ///Mab
+        ///Mimas
+        ///Enceladus
+        ///Tethys
+        ///Dione
+        ///Rhea
+        ///Titan
+        ///Hyperion
+        ///Iapetus
+        ///Phoebe
+        ///Janus
+        ///Epimetheus
+        ///Helene
+        ///Telesto
+        ///Calypso
+        ///Atlas
+        ///Prometheus
+        ///Pandora
+        ///Pan
+        ///Methone
+        ///Pallene
+        ///Polyde [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string systemNames {
+            get {
+                return ResourceManager.GetString("systemNames", resourceCulture);
             }
         }
     }

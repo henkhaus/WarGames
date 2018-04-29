@@ -56,9 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Travel.cs" />
+    <Compile Include="Algorithms\UniverseBuilder.cs" />
     <Compile Include="Art\Animation.cs" />
     <Compile Include="Art\AsciiArt.cs" />
     <Compile Include="Data\IO\SaveLoad.cs" />
+    <Compile Include="Data\IO\Utilities.cs" />
     <Compile Include="Events\Engagement.cs" />
     <Compile Include="Events\Game.cs" />
     <Compile Include="Events\Session.cs" />
@@ -95,6 +97,7 @@
   <ItemGroup>
     <Content Include="Art\img\ship.png" />
     <Content Include="FodyWeavers.xml" />
+    <None Include="Resources\systemNames.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

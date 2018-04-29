@@ -7,6 +7,13 @@ using WarGames.Users;
 
 namespace WarGames.Events
 {
+    public enum Difficulty
+    {
+        Easy = 0,
+        Medium = 1,
+        Hard = 2
+    }
+
     [Serializable]
     public class Game
     {
@@ -22,6 +29,7 @@ namespace WarGames.Events
 
         public List<Session> Sessions { get; set; }
 
+        public Difficulty Difficulty { get; set; }
 
 
 
