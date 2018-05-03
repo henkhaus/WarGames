@@ -150,7 +150,6 @@ namespace WarGamesApp
 
             List<Player> playersList = new List<Player>();
 
-            // TODO: handle when user inputs 0 or negative
             // check if number
             try
             {

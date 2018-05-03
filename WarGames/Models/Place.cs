@@ -14,10 +14,10 @@ namespace WarGames.Models
 
         }
 
-        public Place(string _name, double _x, double _y, double _z)
+        public Place(string name, Coordinates coordinates)
         {
-            Name = _name;
-            Coords = new Coordinates(_x, _y, _z);
+            Name = name;
+            Coords = coordinates;
         }
 
         public string Name { get; set; }
@@ -27,6 +27,10 @@ namespace WarGames.Models
         public List<Resource> Resources { get; set; }
 
         public Coordinates Coords { get; set; }
+
+        //TODO: add type (System, etc.)
+
+        //TODO: have new places register with the universe
 
     }
 }

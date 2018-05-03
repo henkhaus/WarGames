@@ -12,9 +12,9 @@ namespace WarGames.Algorithms
 
         public static double DetermineDistance(Place origin, Place destination)
         {
-            double xDiff = Math.Abs(origin.Coords.x - destination.Coords.x);
-            double yDiff = Math.Abs(origin.Coords.y - destination.Coords.y);
-            double zDiff = Math.Abs(origin.Coords.z - destination.Coords.z);
+            double xDiff = Math.Abs(origin.Coords.X - destination.Coords.X);
+            double yDiff = Math.Abs(origin.Coords.Y - destination.Coords.Y);
+            double zDiff = Math.Abs(origin.Coords.Z - destination.Coords.Z);
 
             // pythagorean formula
             double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));

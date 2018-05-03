@@ -9,26 +9,26 @@ namespace WarGames.Models
     [Serializable]
     public class Coordinates
     {
-        public Coordinates(double _x, double _y, double _z)
+        public Coordinates(double x, double y, double z)
         {
-            if(IsValid(_x))
-                x = _x;
-            if(IsValid(_y))
-                y = _y;
-            if (IsValid(_z))
-                z = _z;
+            if (IsValid(x))
+                X = x;
+            if (IsValid(y))
+                Y = y;
+            if (IsValid(Z))
+                Z = z;
             else
                 throw new ArgumentException("Coordinates entered are not valid.");
         }
 
-        public double x { get; set; }
+        public double X { get; set; }
 
-        public double y { get; set; }
+        public double Y { get; set; }
 
-        public double z { get; set; }
+        public double Z { get; set; }
 
         private bool IsValid(double coord)
-        {  
+        {
             // how big is the universe?
             //TODO: make universe size an option
             if (coord <= 1000000.0)
@@ -36,6 +36,5 @@ namespace WarGames.Models
             else
                 return false;
         }
-
     }
 }

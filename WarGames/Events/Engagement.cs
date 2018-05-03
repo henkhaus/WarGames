@@ -16,7 +16,6 @@ namespace WarGames.Events
     [Serializable]
     public class Engagement : Battle
     {
-        //TODO: add 
 
 
         public int MyProperty { get; set; }

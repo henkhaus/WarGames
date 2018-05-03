@@ -34,6 +34,8 @@ namespace WarGamesApp
             Console.ReadLine();
             Console.Clear();
 
+            
+
             //ascii.ColorTest();
             /*
             List<Unit> units = GameManager.MakeUnits(50);
@@ -48,6 +50,8 @@ namespace WarGamesApp
             // game setup
             Game game = GameManager.LoadGame();
 
+            Universe uni = new Universe(game);
+            uni.ShowFabric();
 
             Console.WriteLine("Lets see them stats first.");
 

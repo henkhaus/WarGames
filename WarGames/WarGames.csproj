@@ -59,6 +59,7 @@
     <Compile Include="Algorithms\UniverseBuilder.cs" />
     <Compile Include="Art\Animation.cs" />
     <Compile Include="Art\AsciiArt.cs" />
+    <Compile Include="Models\Fabric.cs" />
     <Compile Include="Data\IO\SaveLoad.cs" />
     <Compile Include="Data\IO\Utilities.cs" />
     <Compile Include="Events\Engagement.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Coordinates.cs" />
     <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\Plane.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ShipModel\ShipFactory.cs" />
     <Compile Include="Models\ShipModel\IShip.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Models\UnitModel\IUnit.cs" />
     <Compile Include="Models\UnitModel\UnitFactory.cs" />
     <Compile Include="Models\UnitModel\Units.cs" />
+    <Compile Include="Models\Universe.cs" />
     <Compile Include="Models\Utilities.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

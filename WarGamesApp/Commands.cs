@@ -10,6 +10,9 @@ using WarGames.Users;
 
 namespace WarGamesApp
 {
+    /// <summary>
+    /// Basic menu command
+    /// </summary>
     public class MenuCommand : ICommand
     {
         public string Description { get; set; } = "Game Menu";
@@ -57,6 +60,9 @@ namespace WarGamesApp
         }
     }
 
+    /// <summary>
+    /// Gives the user help options
+    /// </summary>
     public class HelpCommand : ICommand
     {
         public string Description { get; set; } = "Game Help";
@@ -79,6 +85,9 @@ namespace WarGamesApp
         }
     }
 
+    /// <summary>
+    /// Exits Game
+    /// </summary>
     public class ExitCommand : ICommand
     {
         public string Description { get; set; } = "Exit Game";
@@ -113,6 +122,9 @@ namespace WarGamesApp
         }
     }
 
+    /// <summary>
+    /// Manages Player Turn state
+    /// </summary>
     public class EndTurnCommand : ICommand
     {
         public string Description { get; set; } = "End current turn for the player";
@@ -123,8 +135,7 @@ namespace WarGamesApp
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.Help("Ending turn for " + player.Character.Name);
-            // TODO: implement state tracking in the player class for if its their turn or not, 
-            // turn that off here
+
             player.Turn = false;
 
             string x = Console.ReadLine();
@@ -132,6 +143,9 @@ namespace WarGamesApp
         }
     }
 
+    /// <summary>
+    /// Gives the player a situation report for the current turn
+    /// </summary>
     public class SitRepCommand : ICommand
     {
         public string Description { get; set; } = "Current Situation Report for the player";
