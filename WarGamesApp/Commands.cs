@@ -51,10 +51,12 @@ namespace WarGamesApp
         {
             List<ICommand> commands = new List<ICommand>();
 
-            commands.Add(new HelpCommand());
-            commands.Add(new ExitCommand());
+            commands.Add(new ShowUniverseCommand());
             commands.Add(new SitRepCommand());
             commands.Add(new EndTurnCommand());
+
+            commands.Add(new HelpCommand());
+            commands.Add(new ExitCommand());
 
             return commands;
         }
@@ -163,6 +165,28 @@ namespace WarGamesApp
             ascii.Help("");
             ascii.Help("");
             ascii.Help("----------------------");
+            ascii.Help("Return to the game by pressing Enter");
+
+            string x = Console.ReadLine();
+            return x;
+        }
+    }
+
+    /// <summary>
+    /// Gives the player a map of the universe
+    /// </summary>
+    public class ShowUniverseCommand : ICommand
+    {
+        public string Description { get; set; } = "Show the universe";
+
+        public List<string> Triggers { get; set; } = new List<string> { "u", "universe" };
+
+        public string Execute(Game game, Player player)
+        {
+
+            game.universe.ShowFabric();
+            AsciiGenerator ascii = new AsciiGenerator();
+
             ascii.Help("Return to the game by pressing Enter");
 
             string x = Console.ReadLine();

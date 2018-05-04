@@ -7,6 +7,7 @@ using WarGames.Algorithms;
 
 namespace WarGames.Models
 {
+    [Serializable]
     public class Plane
     {
         public Plane(int z, List<Coordinates> coordinatesList, UniverseBuilder ub)

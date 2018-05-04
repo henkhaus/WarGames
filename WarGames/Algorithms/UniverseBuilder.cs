@@ -17,7 +17,7 @@ namespace WarGames.Algorithms
             _game = game;
             DetermineSize(_game.Difficulty);
             UniverseFabric = CreateFabric();
-            Systems = CreateSystems(UniverseFabric, .05);
+            Systems = CreateSystems(UniverseFabric, .005);
         }
 
         private Game _game { get; set; }

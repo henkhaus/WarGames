@@ -30,6 +30,11 @@ namespace WarGamesApp
             // get difficulty
             Game game = new Game(league);
             game.Difficulty = SetDifficulty();
+
+            // build universe
+            Universe uni = new Universe(game);
+            game.universe = uni;
+
             // save it
             WarGames.Data.IO.SaveLoad.SaveGame(game);
 

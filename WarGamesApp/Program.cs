@@ -37,22 +37,19 @@ namespace WarGamesApp
             // game setup
             Game game = GameManager.LoadGame();
 
-            Universe uni = new Universe(game);
-            game.universe = uni;
-
-            uni.ShowFabric();
+            List<Player> players = game.LeagueType.Players;
 
 
-            // get to the players
+            /*
             Console.WriteLine("Lets see them stats first.");
 
-            List<Player> players = game.LeagueType.Players;
             foreach (Player player in players)
             {
                 player.Character.GetStats();
             }
 
             Config.WaitandClear();
+            */
             ascii.Info("Game started!");
             MenuCommand menu = new MenuCommand();
 

@@ -25,11 +25,13 @@ namespace WarGames.Models
             Coordinates originCoords = new Coordinates(0.0, 0.0, 0.0);
             Place origin = new Place("origin", originCoords);
 
+            /*
             foreach (var item in Systems)
             {
                 double distToOrigin = Travel.DetermineDistance(origin, item);
                 Console.WriteLine($"{item.Name} System at ({item.Coords.X}, {item.Coords.Y}, {item.Coords.Z}) - {distToOrigin} from origin");
             }
+            */
 
             foreach (var plane in Planes)
             {

@@ -7,6 +7,7 @@ using WarGames.Algorithms;
 
 namespace WarGames.Models
 {
+    [Serializable]
     public class Fabric
     {
         public List<Coordinates> Space { get; set; }
