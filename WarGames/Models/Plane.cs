@@ -40,5 +40,56 @@ namespace WarGames.Models
             this.Places = places;
             return true;
         }
+
+
+        /// <summary>
+        /// Basic Viewer
+        /// </summary>
+        /// <param name="universe"></param>
+        public void PlanePrinter(Universe universe)
+        {
+            // the first row written will be the max diameter-1
+            int row = universe.Diameter - 1;
+            StringBuilder endLine = new StringBuilder();
+            endLine.Append("===");
+            while (row > -1)
+            {
+                List<Place> rowPlaces = new List<Place>();
+
+                // get the places that are on this row (Y values)
+                foreach (Place place in this.Places.Where(c => c.Coords.Y == row))
+                {
+                    rowPlaces.Add(place);
+                }
+
+                // order em
+                rowPlaces.OrderBy(x => x.Coords.X);
+
+                var cols = Enumerable.Range(0, universe.Diameter);
+                Console.Write("| ");
+                // these are the columns (X values)
+                foreach (int col in cols)
+                {
+                    bool found = false;
+                    foreach (var place in rowPlaces)
+                    {
+                        if (place.Coords.X == col)
+                        {
+                            Console.Write(" # ");
+                            found = true;
+                        }
+                    }
+                    if (!found)
+                    {
+                        Console.Write("   ");
+                    }
+                }
+                Console.WriteLine("");
+
+                endLine.Append("===");
+                row -= 1;
+            }
+            Console.Write(endLine.ToString());
+        }
     }
 }

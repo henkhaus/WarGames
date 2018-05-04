@@ -9,6 +9,7 @@ using WarGames.Models;
 
 namespace WarGames.Algorithms
 {
+    [Serializable]
     public class UniverseBuilder
     {
         public UniverseBuilder(Game game)
@@ -16,7 +17,7 @@ namespace WarGames.Algorithms
             _game = game;
             DetermineSize(_game.Difficulty);
             UniverseFabric = CreateFabric();
-            Systems = CreateSystems(UniverseFabric, .1);
+            Systems = CreateSystems(UniverseFabric, .05);
         }
 
         private Game _game { get; set; }
@@ -45,10 +46,10 @@ namespace WarGames.Algorithms
                     this.Diameter = 10;
                     break;
                 case Difficulty.Medium:
-                    this.Diameter = 50;
+                    this.Diameter = 25;
                     break;
                 case Difficulty.Hard:
-                    this.Diameter = 100;
+                    this.Diameter = 50;
                     break;
                 default:
                     break;
@@ -88,13 +89,15 @@ namespace WarGames.Algorithms
         }
 
         /// <summary>
-        /// density is a factor (ie 0.3)
+        /// Creates inital systems for the universe at random.
+        /// Density is a factor (ie 0.3).
         /// </summary>
         /// <param name="fabric"></param>
         /// <param name="density"></param>
         /// <returns></returns>
         public List<Place> CreateSystems(Fabric fabric, double density)
         {
+            // TODO: add rules so systems dont get to close together
             List<Place> systems = new List<Place>();
 
             // get target number of systems to create

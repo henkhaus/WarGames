@@ -34,25 +34,16 @@ namespace WarGamesApp
             Console.ReadLine();
             Console.Clear();
 
-            
-
-            //ascii.ColorTest();
-            /*
-            List<Unit> units = GameManager.MakeUnits(50);
-            foreach (Unit unit in units)
-            {
-                
-                double cenverted = UnitConversion.Convert(1, unit.UnitSize, UnitSize.Fleet);
-                Console.WriteLine($"one {unit.UnitSize} is :{cenverted} fleets");
-            }
-            */
-
             // game setup
             Game game = GameManager.LoadGame();
 
             Universe uni = new Universe(game);
+            game.universe = uni;
+
             uni.ShowFabric();
 
+
+            // get to the players
             Console.WriteLine("Lets see them stats first.");
 
             List<Player> players = game.LeagueType.Players;
