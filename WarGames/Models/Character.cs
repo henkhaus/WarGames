@@ -47,6 +47,7 @@ namespace WarGames.Models
         public void GetStats()
         {
             AsciiGenerator ascii = new AsciiGenerator();
+            // TODO: make this into a command
 
             // TODO: develop smart query to summarize stats
             // var shipQuery = Ships.GroupBy(elem => new { elem.ShipType, elem.ShipClass }).Select(x=>x);
