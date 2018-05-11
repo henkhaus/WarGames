@@ -32,13 +32,15 @@ namespace WarGames.Models
                 Console.WriteLine($"{item.Name} System at ({item.Coords.X}, {item.Coords.Y}, {item.Coords.Z}) - {distToOrigin} from origin");
             }
             */
-
+            foreach (var plane in Planes)
+            {
+                plane.RegisterPlaces(this);
+            }
             foreach (var plane in Planes)
             {
                 Console.Clear();
                 Console.WriteLine($"{plane.Z}:");
 
-                plane.RegisterPlaces(this);
                 plane.PlanePrinter(this);
                 Console.ReadLine();
                 /*

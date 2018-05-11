@@ -49,22 +49,45 @@ namespace WarGames.Models
         /// <param name="universe"></param>
         public void PlanePrinter(Universe universe)
         {
+            // TODO: refactor with better practices/split into methods
+
             // the first row written will be the max diameter-1
             int row = universe.Diameter - 1;
             StringBuilder endLine = new StringBuilder();
             endLine.Append("===");
+
             while (row > -1)
             {
                 List<Place> rowPlaces = new List<Place>();
-
                 // get the places that are on this row (Y values)
                 foreach (Place place in this.Places.Where(c => c.Coords.Y == row))
                 {
                     rowPlaces.Add(place);
                 }
 
+                List<Place> rowPlacesNextPlane = new List<Place>();
+                List<Place> rowPlacesThirdPlane = new List<Place>();
+
+                // get next plane
+                Plane nextPlane = universe.Planes.Where(p => p.Z == (this.Z + 1)).First();
+                Plane thirdPlane = universe.Planes.Where(p => p.Z == (this.Z + 2)).First();
+
+                // get the places that are on this row (Y values) for next Plane
+                foreach (Place place in nextPlane.Places.Where(c => c.Coords.Y == row))
+                {
+                    rowPlacesNextPlane.Add(place);
+                }
+                // get the places that are on this row (Y values) for third Plane
+                foreach (Place place in thirdPlane.Places.Where(c => c.Coords.Y == row))
+                {
+                    rowPlacesThirdPlane.Add(place);
+                }
+
                 // order em
                 rowPlaces.OrderBy(x => x.Coords.X);
+                rowPlacesNextPlane.OrderBy(x => x.Coords.X);
+                rowPlacesThirdPlane.OrderBy(x => x.Coords.X);
+
 
                 var cols = Enumerable.Range(0, universe.Diameter);
                 Console.Write("| ");
@@ -72,12 +95,37 @@ namespace WarGames.Models
                 foreach (int col in cols)
                 {
                     bool found = false;
+                    // look though this plane
                     foreach (var place in rowPlaces)
                     {
                         if (place.Coords.X == col)
                         {
-                            Console.Write(" # ");
+                            Console.Write(" @ ");
                             found = true;
+                        }
+                    }
+                    // look though next plane
+                    if (!found)
+                    {
+                        foreach (var place in rowPlacesNextPlane)
+                        {
+                            if (place.Coords.X == col)
+                            {
+                                Console.Write(" * ");
+                                found = true;
+                            }
+                        }
+                    }
+                    // look though third plane
+                    if (!found)
+                    {
+                        foreach (var place in rowPlacesThirdPlane)
+                        {
+                            if (place.Coords.X == col)
+                            {
+                                Console.Write(" . ");
+                                found = true;
+                            }
                         }
                     }
                     if (!found)
