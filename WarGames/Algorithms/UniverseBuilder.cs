@@ -115,14 +115,14 @@ namespace WarGames.Algorithms
                 int rSystem = randSystem.Next(total);
                 int rName = randName.Next(possibleSystemNames.Count);
 
-                // TODO: remove duplicate names
                 Place system = new Place(possibleSystemNames[rName], fabric.Space[rSystem]);
 
                 systems.Add(system);
                 
                 target -= 1;
             }
-
+            // lets just use the distinct ones
+            systems = systems.DistinctBy(x => x.Name).ToList();
             return systems;
         }
     }
