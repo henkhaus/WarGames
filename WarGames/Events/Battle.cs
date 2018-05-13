@@ -18,7 +18,7 @@ namespace WarGames.Models
     }
 
     /// <summary>
-    /// Battles are created and manages here. Fighting/Dueling happens 
+    /// Battles are created and managed here. Fighting/Dueling happens 
     /// within Engagements. Battles exist within a session.
     /// </summary>
     [Serializable]

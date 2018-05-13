@@ -18,9 +18,7 @@ namespace WarGames.Events
     [Serializable]
     public class Game
     {
-        // games start here
-
-        // TODO: create game - starts with a league of players/users
+        // games start
         public Game(League league)
         {
             LeagueType = league;   
