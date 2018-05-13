@@ -59,19 +59,21 @@ namespace WarGames.Models
             while (row > -1)
             {
                 List<Place> rowPlaces = new List<Place>();
+                List<Place> rowPlacesNextPlane = new List<Place>();
+                List<Place> rowPlacesThirdPlane = new List<Place>();
+                List<Place> rowPlacesFourthPlane = new List<Place>();
+
+                // get next plane
+                // TODO: fix out of range
+                Plane nextPlane = universe.Planes.Where(p => p.Z == (this.Z + 1)).First();
+                Plane thirdPlane = universe.Planes.Where(p => p.Z == (this.Z + 2)).First();
+                Plane fourthPlane = universe.Planes.Where(p => p.Z == (this.Z + 3)).First();
+
                 // get the places that are on this row (Y values)
                 foreach (Place place in this.Places.Where(c => c.Coords.Y == row))
                 {
                     rowPlaces.Add(place);
                 }
-
-                List<Place> rowPlacesNextPlane = new List<Place>();
-                List<Place> rowPlacesThirdPlane = new List<Place>();
-
-                // get next plane
-                Plane nextPlane = universe.Planes.Where(p => p.Z == (this.Z + 1)).First();
-                Plane thirdPlane = universe.Planes.Where(p => p.Z == (this.Z + 2)).First();
-
                 // get the places that are on this row (Y values) for next Plane
                 foreach (Place place in nextPlane.Places.Where(c => c.Coords.Y == row))
                 {
@@ -82,11 +84,17 @@ namespace WarGames.Models
                 {
                     rowPlacesThirdPlane.Add(place);
                 }
+                // get the places that are on this row (Y values) for fourth Plane
+                foreach (Place place in fourthPlane.Places.Where(c => c.Coords.Y == row))
+                {
+                    rowPlacesFourthPlane.Add(place);
+                }
 
                 // order em
                 rowPlaces.OrderBy(x => x.Coords.X);
                 rowPlacesNextPlane.OrderBy(x => x.Coords.X);
                 rowPlacesThirdPlane.OrderBy(x => x.Coords.X);
+                rowPlacesFourthPlane.OrderBy(x => x.Coords.X);
 
 
                 var cols = Enumerable.Range(0, universe.Diameter);
@@ -120,6 +128,18 @@ namespace WarGames.Models
                     if (!found)
                     {
                         foreach (var place in rowPlacesThirdPlane)
+                        {
+                            if (place.Coords.X == col)
+                            {
+                                Console.Write(" . ");
+                                found = true;
+                            }
+                        }
+                    }
+                    // look though fourth plane
+                    if (!found)
+                    {
+                        foreach (var place in rowPlacesFourthPlane)
                         {
                             if (place.Coords.X == col)
                             {
