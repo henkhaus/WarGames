@@ -45,8 +45,9 @@ namespace WarGames.Models
         }
 
 
-        public static T RandomEnumValue<T>(Random rand)
+        public static T RandomEnumValue<T>()
         {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             var v = Enum.GetValues(typeof(T));
 

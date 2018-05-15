@@ -28,10 +28,8 @@ namespace WarGames.Models.ShipModel
     [Serializable]
     public abstract class Ship : Actor
     {
-        public ShipType ShipType { get; set; }
-
-        public ShipClass ShipClass { get; set; }
-
+        public ShipClass shipClass { get; set; }
+        public ShipType shipType { get; set; }
         // TODO: use getter to calc new TotalDamage prop
     }
 
@@ -41,14 +39,13 @@ namespace WarGames.Models.ShipModel
     {
         public Fighter(ShipClass _shipClass)
         {
-            shipClass = _shipClass;
+            this.shipClass = _shipClass;
+            this.shipType = ShipType.Fighter;
         }
-
-        public ShipClass shipClass { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"Class {shipClass.GetDescription()} {this.GetType().Name} ";
+            string nomenclature = $"Class {shipClass} {shipType} ";
             return nomenclature;
         }
 
@@ -59,14 +56,13 @@ namespace WarGames.Models.ShipModel
     {
         public Transport(ShipClass _shipClass)
         {
-            shipClass = _shipClass;
+            this.shipClass = _shipClass;
+            this.shipType = ShipType.Transport;
         }
-
-        public ShipClass shipClass { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"Class {shipClass.GetDescription()} {this.GetType().Name} ";
+            string nomenclature = $"Class {shipClass} {shipType} ";
             return nomenclature;
         }
     }

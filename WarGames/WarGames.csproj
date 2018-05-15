@@ -78,6 +78,7 @@
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ShipModel\ShipFactory.cs" />
     <Compile Include="Models\ShipModel\IShip.cs" />
+    <Compile Include="Models\Stats.cs" />
     <Compile Include="Models\UnitModel\UnitConversion.cs" />
     <Compile Include="Models\UnitModel\IUnit.cs" />
     <Compile Include="Models\UnitModel\UnitFactory.cs" />

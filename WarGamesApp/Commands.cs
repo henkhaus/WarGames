@@ -156,12 +156,12 @@ namespace WarGamesApp
 
         public string Execute(Game game, Player player)
         {
+            string sitrep = player.Character.GetStats();
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.Help("SITREP for "+ player.Character.Name);
             // TODO: for sitrep: add current location, nearest system, inventory, units
-
             ascii.Help("----------------------");
-            ascii.Help("");
+            ascii.Help($"{sitrep}");
             ascii.Help("");
             ascii.Help("");
             ascii.Help("----------------------");

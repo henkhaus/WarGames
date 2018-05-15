@@ -31,10 +31,8 @@ namespace WarGames.Models.UnitModel
     [Serializable]
     public abstract class Unit : Actor
     {
-        public UnitType UnitType { get; set; }
-
-        public UnitSize UnitSize { get; set; }
-
+        public UnitSize unitSize { get; set; }
+        public UnitType unitType { get; set; }
         // TODO: use getter to calc new TotalDamage prop
     }
 
@@ -44,14 +42,14 @@ namespace WarGames.Models.UnitModel
     {
         public Strike(UnitSize _unitSize)
         {
-            unitSize = _unitSize;
+            this.unitSize = _unitSize;
+            this.unitType = UnitType.Strike;
         }
 
-        public UnitSize unitSize { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"{this.GetType().Name} {UnitSize.GetDescription()}";
+            string nomenclature = $"{unitType} {unitSize}";
             return nomenclature;
         }
 
@@ -62,14 +60,14 @@ namespace WarGames.Models.UnitModel
     {
         public Recon(UnitSize _unitSize)
         {
-            unitSize = _unitSize;
+            this.unitSize = _unitSize;
+            this.unitType = UnitType.Recon;
         }
 
-        public UnitSize unitSize { get; set; }
 
         public string GetNomenclature()
         {
-            string nomenclature = $"{this.GetType().Name} {UnitSize.GetDescription()}";
+            string nomenclature = $"{unitType} {unitSize}";
             return nomenclature;
         }
 

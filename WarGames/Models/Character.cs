@@ -44,39 +44,48 @@ namespace WarGames.Models
 
         public List<Unit> Units { get; set; }
 
-        public void GetStats()
+        public string GetStats()
         {
             AsciiGenerator ascii = new AsciiGenerator();
-            // TODO: make this into a command
+            // TODo: allow user to query and see further stats
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Base Power/Stregth {BasePower}/{BaseStrength}\n");
 
-            // TODO: develop smart query to summarize stats
-            // var shipQuery = Ships.GroupBy(elem => new { elem.ShipType, elem.ShipClass }).Select(x=>x);
+            var shipQuery = Ships.GroupBy(x => x.shipType);
 
-            ascii.Help($"Stats for {Name}:");
-            ascii.Help($"");
-            ascii.Help($"Base Power/Stregth {BasePower}/{BaseStrength}\n");
-
-            ascii.Help($"Ships:");
-            foreach (IShip ship in Ships)
+            sb.Append("Ships\n");
+            foreach (var ship in shipQuery)
             {
-                ascii.Help($"{ship.GetNomenclature()}");
+                sb.Append("--\n");
+                sb.Append($"{ship.Count()} {ship.Key.ToString()}s\n");
+
+                var shipClasses = ship.GroupBy(x => x.shipClass);
+                foreach (var classType in shipClasses)
+                {
+                    sb.Append($"- {classType.Count()} {classType.Key.ToString()}\n");
+                }
+
             }
 
-            ascii.Help("Units:");
-            foreach (IUnit unit in Units)
+            var unitQuery = Units.GroupBy(x => x.unitType);
+            sb.Append("\n");
+            sb.Append("Units\n");
+            foreach (var unit in unitQuery)
             {
-                ascii.Help($"{unit.GetNomenclature()}");
+                sb.Append("--\n");
+                sb.Append($"{unit.Count()} {unit.Key.ToString()}\n");
+
+                var unitSizes = unit.GroupBy(x => x.unitSize);
+                foreach (var sizeType in unitSizes)
+                {
+                    sb.Append($"- {sizeType.Count()} {sizeType.Key.ToString()}\n");
+                }
+
             }
 
-            ascii.Help("Items:");
-            for (int i = 0; i < Items.Count; i++)
-            {
-                //not implemented yet
-                ascii.Help($"None.");
-            }
-            ascii.Help($"Stats Complete, press Enter to continue.");
-            Console.ReadLine();
-            Console.Clear();
+            string package = sb.ToString();
+
+            return package;
         }
     }
 }

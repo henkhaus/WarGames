@@ -255,12 +255,13 @@ namespace WarGamesApp
             List<Ship> ships = new List<Ship>();
 
             ShipFactory shipFactory = new ShipFactory();
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
+
 
             for (int i = 0; i < howMany; i++)
             {
-                IShip ship = shipFactory.CreateShip(WarGames.Models.Utilities.RandomEnumValue<ShipType>(rand),
-                                                    WarGames.Models.Utilities.RandomEnumValue<ShipClass>(rand));
+               
+                IShip ship = shipFactory.CreateShip(WarGames.Models.Utilities.RandomEnumValue<ShipType>(),
+                                                    WarGames.Models.Utilities.RandomEnumValue<ShipClass>());
                 //Console.WriteLine(ship.GetNomenclature());
                 ships.Add((Ship)ship);
             }
@@ -278,12 +279,12 @@ namespace WarGamesApp
             List<Unit> units = new List<Unit>();
 
             UnitFactory unitFactory = new UnitFactory();
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             for (int i = 0; i < howMany; i++)
             {
-                IUnit unit = unitFactory.CreateUnit(WarGames.Models.Utilities.RandomEnumValue<UnitType>(rand),
-                                                    WarGames.Models.Utilities.RandomEnumValue<UnitSize>(rand));
+
+                IUnit unit = unitFactory.CreateUnit(WarGames.Models.Utilities.RandomEnumValue<UnitType>(),
+                                                    WarGames.Models.Utilities.RandomEnumValue<UnitSize>());
                 //Console.WriteLine(unit.GetNomenclature());
                 units.Add((Unit)unit);
             }
