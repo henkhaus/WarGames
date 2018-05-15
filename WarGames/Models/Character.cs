@@ -47,10 +47,26 @@ namespace WarGames.Models
         public string GetStats()
         {
             AsciiGenerator ascii = new AsciiGenerator();
-            // TODo: allow user to query and see further stats
+            // TODO: allow user to query and see further stats
             StringBuilder sb = new StringBuilder();
+            sb.Append("----\n");
+            sb.Append($"{this.Name} (race: {this.Race})\n");
             sb.Append($"Base Power/Stregth {BasePower}/{BaseStrength}\n");
+            sb.Append($"Effective Power/Stregth {EffectivePower}/{EffectiveStrength}\n");
 
+            sb.Append($"Current Location: {this.CurrentLocation.Name} - ({this.CurrentLocation.Coords.X}, {this.CurrentLocation.Coords.Y}, {this.CurrentLocation.Coords.Z})\n");
+            if (this.Destination != null)
+            {
+                sb.Append($"Destination: {this.Destination}. {this.DistanceToDestination} away, will arrive at {this.TimeToDestination}\n");
+            }
+            else
+            {
+                sb.Append($"Not currently travelling.\n");
+            }
+            sb.Append("\n");
+            sb.Append("----\n");
+            sb.Append("Inventory:\n");
+            sb.Append("\n");
             var shipQuery = Ships.GroupBy(x => x.shipType);
 
             sb.Append("Ships\n");

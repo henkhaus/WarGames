@@ -98,6 +98,7 @@ namespace WarGames.Algorithms
         public List<Place> CreateSystems(Fabric fabric, double density)
         {
             // TODO: add rules so systems dont get to close together
+            // TODO: need spatial queries to add system placement rules
             List<Place> systems = new List<Place>();
 
             // get target number of systems to create

@@ -35,6 +35,11 @@ namespace WarGamesApp
             Universe uni = new Universe(game);
             game.universe = uni;
 
+            foreach (var player in players)
+            {
+                SetInitialPlace(player, game);
+            }
+
             // save it
             WarGames.Data.IO.SaveLoad.SaveGame(game);
 
@@ -189,6 +194,7 @@ namespace WarGamesApp
                     ascii.Info(player.Name + " Created!");
 
                     SetRandomItems(player, 25);
+                    // TODO add location to player
 
                     playersList.Add(player);
                 }
@@ -223,6 +229,13 @@ namespace WarGamesApp
         }
 
 
+        public static void SetInitialPlace(Player player, Game game)
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            int rando = rand.Next(game.universe.Systems.Count());
+            player.Character.CurrentLocation = game.universe.Systems[rando];
+        }
+
         /// <summary>
         /// Build random items for a player based on a fuzzy total of items.
         /// </summary>
@@ -237,7 +250,7 @@ namespace WarGamesApp
             while (goalNum <= totalItems)
             {
                 int rando = rand.Next(1, totalItems);
-                //Console.WriteLine(rando);
+
                 player.Character.Ships.AddRange(MakeShips(rando));
                 player.Character.Units.AddRange(MakeUnits(rando));
 
