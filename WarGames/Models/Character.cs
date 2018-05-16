@@ -7,7 +7,9 @@ using WarGames.Models.ShipModel;
 using WarGames.Models.UnitModel;
 using WarGames.Models.ActionModel;
 using WarGames.Art;
+using WarGames.Algorithms;
 using Console = Colorful.Console;
+using WarGames.Events;
 
 namespace WarGames.Models
 {
@@ -44,7 +46,7 @@ namespace WarGames.Models
 
         public List<Unit> Units { get; set; }
 
-        public string GetStats()
+        public string GetStats(Game game)
         {
             AsciiGenerator ascii = new AsciiGenerator();
             // TODO: allow user to query and see further stats
@@ -64,6 +66,13 @@ namespace WarGames.Models
                 sb.Append($"Not currently travelling.\n");
             }
             sb.Append("\n");
+
+            sb.Append("Nearest systems:\n");
+            List<PlaceDistance> pds = Travel.GetClosestSystems(this, game.universe, 5);
+            foreach (var pd in pds)
+            {
+                sb.Append($"{pd.place.Name} - ({pd.place.Coords.X}, {pd.place.Coords.Y}, {pd.place.Coords.Z}) -\t distance: {pd.distanceFromPlayer}\n");
+            }
             sb.Append("----\n");
             sb.Append("Inventory:\n");
             sb.Append("\n");

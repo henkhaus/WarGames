@@ -194,7 +194,6 @@ namespace WarGamesApp
                     ascii.Info(player.Name + " Created!");
 
                     SetRandomItems(player, 25);
-                    // TODO add location to player
 
                     playersList.Add(player);
                 }

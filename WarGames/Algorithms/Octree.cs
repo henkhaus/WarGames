@@ -8,5 +8,6 @@ namespace WarGames.Algorithms
 {
     class Octree
     {
+        // TODO: implement octree or KD-tree for universe
     }
 }
