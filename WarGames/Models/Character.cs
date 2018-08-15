@@ -76,15 +76,15 @@ namespace WarGames.Models
             sb.Append("----\n");
             sb.Append("Inventory:\n");
             sb.Append("\n");
-            var shipQuery = Ships.GroupBy(x => x.shipType);
-
+            var shipQuery = Ships.OrderBy(y => y.shipType).GroupBy(x => x.shipType);
+        
             sb.Append("Ships\n");
             foreach (var ship in shipQuery)
             {
                 sb.Append("--\n");
                 sb.Append($"{ship.Count()} {ship.Key.ToString()}s\n");
 
-                var shipClasses = ship.GroupBy(x => x.shipClass);
+                var shipClasses = ship.OrderBy(y => y.shipClass).GroupBy(x => x.shipClass);
                 foreach (var classType in shipClasses)
                 {
                     sb.Append($"- {classType.Count()} {classType.Key.ToString()}\n");
@@ -92,7 +92,7 @@ namespace WarGames.Models
 
             }
 
-            var unitQuery = Units.GroupBy(x => x.unitType);
+            var unitQuery = Units.OrderBy(y => y.unitType).GroupBy(x => x.unitType);
             sb.Append("\n");
             sb.Append("Units\n");
             foreach (var unit in unitQuery)
@@ -100,7 +100,7 @@ namespace WarGames.Models
                 sb.Append("--\n");
                 sb.Append($"{unit.Count()} {unit.Key.ToString()}\n");
 
-                var unitSizes = unit.GroupBy(x => x.unitSize);
+                var unitSizes = unit.OrderBy(y => y.unitSize).GroupBy(x => x.unitSize);
                 foreach (var sizeType in unitSizes)
                 {
                     sb.Append($"- {sizeType.Count()} {sizeType.Key.ToString()}\n");

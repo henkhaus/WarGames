@@ -41,7 +41,7 @@ namespace WarGames.Models
         public TimeSpan TimeToDestination { get; set; }
 
         public DateTime Arrival { get; set; }
-
+        //TODO: add travel events
         public bool SetDestination(Place destination)
         {
             this.Destination = destination;
@@ -50,9 +50,9 @@ namespace WarGames.Models
             // determine distance to destination
             try
             {
-                DistanceToDestination = Travel.DetermineDistance(this.Origination, this.Destination);
-                TimeToDestination = TimeSpan.FromDays(DistanceToDestination / this.Speed);
-                Arrival = DateTime.Now + TimeToDestination;
+                this.DistanceToDestination = Travel.DetermineDistance(this.Origination, this.Destination);
+                this.TimeToDestination = TimeSpan.FromDays(DistanceToDestination / this.Speed);
+                this.Arrival = DateTime.Now + TimeToDestination;
             }
             catch (Exception e)
             {
