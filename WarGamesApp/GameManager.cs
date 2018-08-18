@@ -33,7 +33,7 @@ namespace WarGamesApp
 
             // build universe
             Universe uni = new Universe(game);
-            game.universe = uni;
+            game.Universe = uni;
 
             foreach (var player in players)
             {
@@ -231,8 +231,8 @@ namespace WarGamesApp
         public static void SetInitialPlace(Player player, Game game)
         {
             Random rand = new Random(Guid.NewGuid().GetHashCode());
-            int rando = rand.Next(game.universe.Systems.Count());
-            player.Character.CurrentLocation = game.universe.Systems[rando];
+            int rando = rand.Next(game.Universe.Systems.Count());
+            player.Character.CurrentLocation = game.Universe.Systems[rando];
         }
 
         /// <summary>

@@ -24,13 +24,19 @@ namespace WarGames.Events
             LeagueType = league;   
         }
 
+        /// <summary>
+        /// Counter for turns in the game. Used to 
+        /// process travel times for players
+        /// </summary>
+        public int TurnCount { get; set; }
+
         public League LeagueType { get; set; }
 
         public List<Session> Sessions { get; set; }
 
         public Difficulty Difficulty { get; set; }
 
-        public Universe universe { get; set; }
+        public Universe Universe { get; set; }
 
     }
 }

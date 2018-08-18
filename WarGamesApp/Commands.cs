@@ -131,7 +131,7 @@ namespace WarGamesApp
     {
         public string Description { get; set; } = "End current turn for the player";
 
-        public List<string> Triggers { get; set; } = new List<string> { "done", "next" };
+        public List<string> Triggers { get; set; } = new List<string> { "done", "next", "end turn" };
 
         public string Execute(Game game, Player player)
         {
@@ -139,6 +139,8 @@ namespace WarGamesApp
             ascii.Help("Ending turn for " + player.Character.Name);
 
             player.Turn = false;
+
+            game.TurnCount += 1;
 
             string x = Console.ReadLine();
             return x;
@@ -184,7 +186,7 @@ namespace WarGamesApp
         public string Execute(Game game, Player player)
         {
 
-            game.universe.ShowFabric();
+            game.Universe.ShowFabric();
             AsciiGenerator ascii = new AsciiGenerator();
 
             ascii.Help("Return to the game by pressing Enter");

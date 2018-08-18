@@ -41,7 +41,7 @@ namespace WarGames.Models
         public TimeSpan TimeToDestination { get; set; }
 
         public DateTime Arrival { get; set; }
-        //TODO: add travel events
+        //TODO: add travel events - make this turn based?
         public bool SetDestination(Place destination)
         {
             this.Destination = destination;

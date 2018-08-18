@@ -68,7 +68,7 @@ namespace WarGames.Models
             sb.Append("\n");
 
             sb.Append("Nearest systems:\n");
-            List<PlaceDistance> pds = Travel.GetClosestSystems(this, game.universe, 5);
+            List<PlaceDistance> pds = Travel.GetClosestSystems(this, game.Universe, 5);
             foreach (var pd in pds)
             {
                 sb.Append($"{pd.place.Name} - ({pd.place.Coords.X}, {pd.place.Coords.Y}, {pd.place.Coords.Z}) -\t distance: {pd.distanceFromPlayer}\n");

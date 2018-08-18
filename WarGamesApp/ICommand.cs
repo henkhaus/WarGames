@@ -8,6 +8,9 @@ using WarGames.Users;
 
 namespace WarGamesApp
 {
+    /// <summary>
+    /// All user commands implement this interface
+    /// </summary>
     public interface ICommand
     {
         // description of the command 
