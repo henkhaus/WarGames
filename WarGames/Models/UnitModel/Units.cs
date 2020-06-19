@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarGames.Models;
 using WarGames.Algorithms;
+using System.Runtime.CompilerServices;
 
 namespace WarGames.Models.UnitModel
 {
@@ -44,8 +45,9 @@ namespace WarGames.Models.UnitModel
         {
             this.unitSize = _unitSize;
             this.unitType = UnitType.Strike;
+            this.Name = GetNomenclature();
         }
-
+        
 
         public string GetNomenclature()
         {

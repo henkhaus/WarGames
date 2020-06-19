@@ -25,20 +25,28 @@ namespace WarGamesApp
         /// <returns></returns>
         public static Game SetupNewGame()
         {
-            List<Player> players = GameManager.BuildPayerRoutine();
+            List<Player> players = GameManager.BuildPlayerRoutine();
+
             League league = GameManager.BuildLeagueRoutine(players);
             // get difficulty
             Game game = new Game(league);
+
             game.Difficulty = SetDifficulty();
-
             // build universe
-            Universe uni = new Universe(game);
-            game.Universe = uni;
+            game.Universe = new Universe(game);
 
-            foreach (var player in players)
+            // Add all actors to actors list. 
+            // this will be used to bulk update Actor data
+            foreach (Player player in players)
             {
                 SetInitialPlace(player, game);
+                Console.WriteLine($"Adding {player.Name}");
+                game.Actors = new List<Actor>();
+                game.Actors.Add(player.Character);
+                game.Actors.AddRange(player.Character.Ships);
+                game.Actors.AddRange(player.Character.Units);
             }
+
 
             // save it
             WarGames.Data.IO.SaveLoad.SaveGame(game);
@@ -148,7 +156,7 @@ namespace WarGamesApp
         /// Build players and characters.
         /// </summary>
         /// <returns></returns>
-        public static List<Player> BuildPayerRoutine()
+        public static List<Player> BuildPlayerRoutine()
         {
             AsciiGenerator ascii = new AsciiGenerator();
 
@@ -169,7 +177,7 @@ namespace WarGamesApp
             {
                 ascii.Warn("You must enter a number. Please try again.");
 
-                BuildPayerRoutine();
+                BuildPlayerRoutine();
             }
 
             // build players
@@ -202,7 +210,7 @@ namespace WarGamesApp
             {
                 ascii.Danger("Must have at least one player. Please try again.");
 
-                BuildPayerRoutine();
+                BuildPlayerRoutine();
             }
             return playersList;
         }

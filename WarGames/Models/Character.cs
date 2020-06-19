@@ -36,8 +36,6 @@ namespace WarGames.Models
             EffectiveStrength = BaseStrength;
         }
 
-        public string Name { get; set; }
-
         public Race Race { get; set; }
 
         public Dictionary<string, Item> Items { get; set; }
@@ -59,7 +57,7 @@ namespace WarGames.Models
             sb.Append($"Current Location: {this.CurrentLocation.Name} - ({this.CurrentLocation.Coords.X}, {this.CurrentLocation.Coords.Y}, {this.CurrentLocation.Coords.Z})\n");
             if (this.Destination != null)
             {
-                sb.Append($"Destination: {this.Destination}. {this.DistanceToDestination} away, will arrive at {this.TimeToDestination}\n");
+                sb.Append($"Destination: {this.Destination.Name} - ({this.Destination.Coords.X}, {this.Destination.Coords.Y}, {this.Destination.Coords.Z}) which is {this.DistanceToDestination} units away, will arrive in {this.TurnsToDestination} turns\n");
             }
             else
             {

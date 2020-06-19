@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarGames.Algorithms;
 using WarGames.Art;
 using WarGames.Events;
+using WarGames.Models;
 using WarGames.Users;
 
 namespace WarGamesApp
@@ -19,7 +21,9 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "m", "menu" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("WarGames Menu", Color.AntiqueWhite);
@@ -53,6 +57,7 @@ namespace WarGamesApp
 
             commands.Add(new ShowUniverseCommand());
             commands.Add(new SitRepCommand());
+            commands.Add(new SetDestinationCommand());
             commands.Add(new EndTurnCommand());
 
             commands.Add(new HelpCommand());
@@ -71,7 +76,9 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "h", "help" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.WriteInAscii("Help", Color.AntiqueWhite);
@@ -80,7 +87,7 @@ namespace WarGamesApp
             ascii.Help("Exit Game: xx or exit");
             ascii.Help("");
             ascii.Help("");
-            ascii.Help("Return to the game by pressing Enter");
+            ascii.Help("Return to menu by pressing Enter.");
 
             string x = Console.ReadLine();
             return x;
@@ -96,7 +103,9 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "xx", "exit" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
             AsciiGenerator ascii = new AsciiGenerator();
 
@@ -133,7 +142,9 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "done", "next", "end turn" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
             AsciiGenerator ascii = new AsciiGenerator();
             ascii.Help("Ending turn for " + player.Character.Name);
@@ -156,7 +167,9 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "s", "sitrep" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
             string sitrep = player.Character.GetStats(game);
             AsciiGenerator ascii = new AsciiGenerator();
@@ -167,7 +180,7 @@ namespace WarGamesApp
             ascii.Help("");
             ascii.Help("");
             ascii.Help("----------------------");
-            ascii.Help("Return to the game by pressing Enter");
+            ascii.Help("Return to menu by pressing Enter.");
 
             string x = Console.ReadLine();
             return x;
@@ -183,13 +196,53 @@ namespace WarGamesApp
 
         public List<string> Triggers { get; set; } = new List<string> { "u", "universe" };
 
-        public string Execute(Game game, Player player)
+        public bool MultipleArguments { get; set; } = false;
+
+        public string Execute(Game game, Player player, string[] args = null)
         {
 
             game.Universe.ShowFabric();
             AsciiGenerator ascii = new AsciiGenerator();
 
-            ascii.Help("Return to the game by pressing Enter");
+            ascii.Help("Return to menu by pressing Enter.");
+
+            string x = Console.ReadLine();
+            return x;
+        }
+    }
+
+
+    public class SetDestinationCommand : ICommand
+    {
+        public string Description { get; set; } = "Set Destination (example: 't Earth')";
+
+        public List<string> Triggers { get; set; } = new List<string> { "t", "travel", "destination" };
+
+        public bool MultipleArguments { get; set; } = true;
+
+        public string Execute(Game game, Player player, string[] args = null)
+        {
+            AsciiGenerator ascii = new AsciiGenerator();
+
+            if (args != null && args.Length == 2)
+            {
+                Place destination = Travel.GetPlaceByName(game.Universe, args[1]);
+
+                if (destination != null)
+                {
+                    player.Character.SetDestination(destination);
+
+                    ascii.Help("Set destination to " + args[1] + ". Confirmed!");
+                    ascii.Help("Time to destination: " + player.Character.TurnsToDestination);
+                }
+                else
+                {
+                    ascii.Help("The destination "+ args[1] +" does not exist. Please try again.");
+                }
+
+            }
+
+            ascii.Help("Return to menu by pressing Enter.");
 
             string x = Console.ReadLine();
             return x;

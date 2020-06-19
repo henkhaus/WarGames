@@ -58,6 +58,7 @@ namespace WarGames.Models.ShipModel
         {
             this.shipClass = _shipClass;
             this.shipType = ShipType.Transport;
+            this.Name = GetNomenclature();
         }
 
         public string GetNomenclature()
