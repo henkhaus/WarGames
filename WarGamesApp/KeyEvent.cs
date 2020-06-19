@@ -21,29 +21,40 @@ namespace WarGamesApp
         /// <returns></returns>
         public static string DetermineInput(string input, Game game, Player player)
         {
-            string[] args = Parse(input);
-
-            foreach (string arg in args)
-            {
-
-            }
-
-            string output = "";
-
+            string[] args = Parse(input.ToLower());
             MenuCommand menu = new MenuCommand();
             List<ICommand> commands = menu.GetCommands();
+            string output = "";
 
             // formal args passed here after going through Parse()
-            foreach (var command in commands)
+
+            // these are only the multiple arg commands 
+            if (args.Length > 1)
             {
-                if (command.Triggers.Contains(input.ToLower()))
+                foreach (var command in commands.Where(x => x.MultipleArguments == true).ToList())
                 {
-                    output = command.Execute(game, player);
+                    if (command.Triggers.Contains(args[0]))
+                    {
+                        output = command.Execute(game, player, args);
+                        return output;
+                    }
+                }
+            }
+
+            // these are only the single arg commands 
+            foreach (var command in commands.Where(x => x.MultipleArguments == false).ToList())
+            {
+                if (command.Triggers.Contains(args[0]))
+                {
+                    output = command.Execute(game, player, null);
                     return output;
                 }
             }
+
             return output;
         }
+
+
 
 
         /// <summary>

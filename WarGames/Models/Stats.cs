@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarGames.Models
 {
+    /// <summary>
+    /// Used as an output for Linq queries
+    /// </summary>
     public class Stats
     {
         public string Item { get; set; }

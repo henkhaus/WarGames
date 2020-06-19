@@ -8,6 +8,9 @@ using WarGames.Users;
 
 namespace WarGamesApp
 {
+    /// <summary>
+    /// All user commands implement this interface
+    /// </summary>
     public interface ICommand
     {
         // description of the command 
@@ -16,7 +19,10 @@ namespace WarGamesApp
         // keys needed to tigger execution (m, menu)
         List<string> Triggers { get; set; }
 
+        // does this command take multiple args (first arg is trigger for command) 
+        bool MultipleArguments { get; set; }
+
         // execution of the command
-        string Execute(Game game, Player player);
+        string Execute(Game game, Player player, string[] args);
     }
 }

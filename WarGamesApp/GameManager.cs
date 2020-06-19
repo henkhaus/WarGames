@@ -25,15 +25,28 @@ namespace WarGamesApp
         /// <returns></returns>
         public static Game SetupNewGame()
         {
-            List<Player> players = GameManager.BuildPayerRoutine();
+            List<Player> players = GameManager.BuildPlayerRoutine();
+
             League league = GameManager.BuildLeagueRoutine(players);
             // get difficulty
             Game game = new Game(league);
-            game.Difficulty = SetDifficulty();
 
+            game.Difficulty = SetDifficulty();
             // build universe
-            Universe uni = new Universe(game);
-            game.universe = uni;
+            game.Universe = new Universe(game);
+
+            // Add all actors to actors list. 
+            // this will be used to bulk update Actor data
+            foreach (Player player in players)
+            {
+                SetInitialPlace(player, game);
+                Console.WriteLine($"Adding {player.Name}");
+                game.Actors = new List<Actor>();
+                game.Actors.Add(player.Character);
+                game.Actors.AddRange(player.Character.Ships);
+                game.Actors.AddRange(player.Character.Units);
+            }
+
 
             // save it
             WarGames.Data.IO.SaveLoad.SaveGame(game);
@@ -143,7 +156,7 @@ namespace WarGamesApp
         /// Build players and characters.
         /// </summary>
         /// <returns></returns>
-        public static List<Player> BuildPayerRoutine()
+        public static List<Player> BuildPlayerRoutine()
         {
             AsciiGenerator ascii = new AsciiGenerator();
 
@@ -164,7 +177,7 @@ namespace WarGamesApp
             {
                 ascii.Warn("You must enter a number. Please try again.");
 
-                BuildPayerRoutine();
+                BuildPlayerRoutine();
             }
 
             // build players
@@ -197,7 +210,7 @@ namespace WarGamesApp
             {
                 ascii.Danger("Must have at least one player. Please try again.");
 
-                BuildPayerRoutine();
+                BuildPlayerRoutine();
             }
             return playersList;
         }
@@ -223,6 +236,13 @@ namespace WarGamesApp
         }
 
 
+        public static void SetInitialPlace(Player player, Game game)
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            int rando = rand.Next(game.Universe.Systems.Count());
+            player.Character.CurrentLocation = game.Universe.Systems[rando];
+        }
+
         /// <summary>
         /// Build random items for a player based on a fuzzy total of items.
         /// </summary>
@@ -237,7 +257,7 @@ namespace WarGamesApp
             while (goalNum <= totalItems)
             {
                 int rando = rand.Next(1, totalItems);
-                //Console.WriteLine(rando);
+
                 player.Character.Ships.AddRange(MakeShips(rando));
                 player.Character.Units.AddRange(MakeUnits(rando));
 

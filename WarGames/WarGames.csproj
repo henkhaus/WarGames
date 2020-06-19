@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Octree.cs" />
     <Compile Include="Algorithms\Travel.cs" />
     <Compile Include="Algorithms\UniverseBuilder.cs" />
     <Compile Include="Art\Animation.cs" />
